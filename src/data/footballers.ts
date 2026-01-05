@@ -10,9 +10,9 @@ export interface Footballer {
   imageUrl: string;
 }
 
-// Using UI Avatars for placeholder images - in production, replace with real photos
-const getAvatar = (name: string) =>
-  `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&size=200&background=random&bold=true`;
+// SoFIFA/EA FC player image URLs
+const getPlayerImage = (fifaId: number) =>
+  `https://cdn.sofifa.net/players/${String(fifaId).slice(0, 3)}/${String(fifaId).slice(3)}/25_120.png`;
 
 export const footballers: Footballer[] = [
   // Premier League Stars
@@ -25,7 +25,7 @@ export const footballers: Footballer[] = [
     nationality: "Norway",
     hairColor: "Blonde",
     facialHair: false,
-    imageUrl: getAvatar("Erling Haaland")
+    imageUrl: getPlayerImage(239085)
   },
   {
     id: 2,
@@ -36,7 +36,7 @@ export const footballers: Footballer[] = [
     nationality: "Egypt",
     hairColor: "Black",
     facialHair: true,
-    imageUrl: getAvatar("Mohamed Salah")
+    imageUrl: getPlayerImage(209331)
   },
   {
     id: 3,
@@ -47,7 +47,7 @@ export const footballers: Footballer[] = [
     nationality: "Belgium",
     hairColor: "Red",
     facialHair: true,
-    imageUrl: getAvatar("Kevin De Bruyne")
+    imageUrl: getPlayerImage(192985)
   },
   {
     id: 4,
@@ -58,7 +58,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getAvatar("Bukayo Saka")
+    imageUrl: getPlayerImage(246669)
   },
   {
     id: 5,
@@ -69,7 +69,7 @@ export const footballers: Footballer[] = [
     nationality: "Portugal",
     hairColor: "Brown",
     facialHair: true,
-    imageUrl: getAvatar("Bruno Fernandes")
+    imageUrl: getPlayerImage(212198)
   },
   {
     id: 6,
@@ -80,7 +80,7 @@ export const footballers: Footballer[] = [
     nationality: "Netherlands",
     hairColor: "Black",
     facialHair: true,
-    imageUrl: getAvatar("Virgil van Dijk")
+    imageUrl: getPlayerImage(203376)
   },
   // La Liga Stars
   {
@@ -92,7 +92,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getAvatar("Jude Bellingham")
+    imageUrl: getPlayerImage(246126)
   },
   {
     id: 8,
@@ -103,7 +103,7 @@ export const footballers: Footballer[] = [
     nationality: "Brazil",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getAvatar("Vinicius Jr")
+    imageUrl: getPlayerImage(238794)
   },
   {
     id: 9,
@@ -114,7 +114,7 @@ export const footballers: Footballer[] = [
     nationality: "Poland",
     hairColor: "Brown",
     facialHair: false,
-    imageUrl: getAvatar("Robert Lewandowski")
+    imageUrl: getPlayerImage(188545)
   },
   {
     id: 10,
@@ -125,7 +125,7 @@ export const footballers: Footballer[] = [
     nationality: "Spain",
     hairColor: "Brown",
     facialHair: false,
-    imageUrl: getAvatar("Pedri")
+    imageUrl: getPlayerImage(250007)
   },
   {
     id: 11,
@@ -136,7 +136,7 @@ export const footballers: Footballer[] = [
     nationality: "Spain",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getAvatar("Lamine Yamal")
+    imageUrl: getPlayerImage(271195)
   },
   {
     id: 12,
@@ -147,7 +147,7 @@ export const footballers: Footballer[] = [
     nationality: "Belgium",
     hairColor: "Brown",
     facialHair: true,
-    imageUrl: getAvatar("Thibaut Courtois")
+    imageUrl: getPlayerImage(192119)
   },
   // Serie A Stars
   {
@@ -159,7 +159,7 @@ export const footballers: Footballer[] = [
     nationality: "Argentina",
     hairColor: "Brown",
     facialHair: true,
-    imageUrl: getAvatar("Lautaro Martinez")
+    imageUrl: getPlayerImage(224285)
   },
   {
     id: 14,
@@ -170,7 +170,7 @@ export const footballers: Footballer[] = [
     nationality: "Portugal",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getAvatar("Rafael Leao")
+    imageUrl: getPlayerImage(241721)
   },
   {
     id: 15,
@@ -181,7 +181,7 @@ export const footballers: Footballer[] = [
     nationality: "Nigeria",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getAvatar("Victor Osimhen")
+    imageUrl: getPlayerImage(237392)
   },
   // Bundesliga Stars
   {
@@ -193,7 +193,7 @@ export const footballers: Footballer[] = [
     nationality: "Germany",
     hairColor: "Blonde",
     facialHair: false,
-    imageUrl: getAvatar("Florian Wirtz")
+    imageUrl: getPlayerImage(247174)
   },
   {
     id: 17,
@@ -204,7 +204,7 @@ export const footballers: Footballer[] = [
     nationality: "Germany",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getAvatar("Jamal Musiala")
+    imageUrl: getPlayerImage(258005)
   },
   {
     id: 18,
@@ -215,9 +215,9 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Brown",
     facialHair: true,
-    imageUrl: getAvatar("Harry Kane")
+    imageUrl: getPlayerImage(202126)
   },
-  // Ligue 1 Stars
+  // La Liga / Ligue 1 Stars
   {
     id: 19,
     name: "Kylian Mbappe",
@@ -227,7 +227,7 @@ export const footballers: Footballer[] = [
     nationality: "France",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getAvatar("Kylian Mbappe")
+    imageUrl: getPlayerImage(231747)
   },
   {
     id: 20,
@@ -238,7 +238,7 @@ export const footballers: Footballer[] = [
     nationality: "France",
     hairColor: "Black",
     facialHair: true,
-    imageUrl: getAvatar("Ousmane Dembele")
+    imageUrl: getPlayerImage(231443)
   },
   // More Premier League
   {
@@ -250,7 +250,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Brown",
     facialHair: false,
-    imageUrl: getAvatar("Declan Rice")
+    imageUrl: getPlayerImage(232698)
   },
   {
     id: 22,
@@ -261,7 +261,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Black",
     facialHair: true,
-    imageUrl: getAvatar("Marcus Rashford")
+    imageUrl: getPlayerImage(231677)
   },
   {
     id: 23,
@@ -272,7 +272,7 @@ export const footballers: Footballer[] = [
     nationality: "Brazil",
     hairColor: "Brown",
     facialHair: true,
-    imageUrl: getAvatar("Alisson Becker")
+    imageUrl: getPlayerImage(212831)
   },
   {
     id: 24,
@@ -283,7 +283,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Blonde",
     facialHair: false,
-    imageUrl: getAvatar("Phil Foden")
+    imageUrl: getPlayerImage(237692)
   }
 ];
 

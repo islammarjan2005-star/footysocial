@@ -1,6 +1,7 @@
 .footballer-card {
   user-select: none;
   perspective: 1000px;
+  transform-style: preserve-3d;
 }
 
 .footballer-card.clickable {
@@ -8,10 +9,10 @@
 }
 
 .footballer-card.clickable:hover .card-frame {
-  transform: translateY(-5px) rotateX(5deg);
+  transform: translateY(-8px) rotateX(10deg) rotateY(-5deg);
   box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.4),
-    0 0 30px rgba(0, 255, 136, 0.2);
+    0 25px 50px rgba(0, 0, 0, 0.35),
+    0 0 0 4px var(--accent-yellow);
 }
 
 .footballer-card.clickable:hover .card-shine {
@@ -23,49 +24,57 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  transform-style: preserve-3d;
 }
 
-/* Trading card frame */
+/* Guess Who style plastic card frame */
 .card-frame {
   position: relative;
   background: linear-gradient(
-    145deg,
-    #2a2a4a 0%,
-    #1a1a3a 50%,
-    #2a2a4a 100%
+    180deg,
+    #e53935 0%,
+    #c62828 50%,
+    #b71c1c 100%
   );
-  padding: 4px;
+  padding: 6px;
   border-radius: 12px;
   box-shadow:
     0 8px 25px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    inset 0 2px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   overflow: hidden;
+  transform-style: preserve-3d;
+  border: 3px solid #8b0000;
 }
 
-/* Metallic border effect */
+/* 3D depth effect */
+.card-frame::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 4px;
+  right: 4px;
+  height: 8px;
+  background: linear-gradient(180deg, #8b0000, #5c0000);
+  border-radius: 0 0 8px 8px;
+  z-index: -1;
+}
+
+/* Metallic frame accent */
 .card-frame::before {
   content: '';
   position: absolute;
-  inset: 0;
-  border-radius: 12px;
+  inset: 3px;
+  border-radius: 9px;
   padding: 2px;
   background: linear-gradient(
     135deg,
-    var(--accent-gold) 0%,
-    #b8860b 25%,
-    var(--accent-gold) 50%,
-    #b8860b 75%,
-    var(--accent-gold) 100%
+    rgba(255, 255, 255, 0.4) 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.2) 100%
   );
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  pointer-events: none;
 }
 
 /* Shine effect on hover */
@@ -78,7 +87,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.4),
     transparent
   );
   opacity: 0;
@@ -87,11 +96,13 @@
   z-index: 10;
 }
 
+/* White card face */
 .card-image-container {
   position: relative;
-  background: linear-gradient(180deg, #1e1e3f 0%, #0f0f2a 100%);
-  border-radius: 8px;
+  background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+  border-radius: 6px;
   overflow: hidden;
+  border: 2px solid #ddd;
 }
 
 .card-image {
@@ -99,6 +110,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
 .card-image img {
@@ -106,22 +118,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: filter 0.3s ease;
-}
-
-/* Rating badge */
-.card-rating {
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  background: linear-gradient(135deg, var(--accent-gold), #b8860b);
-  color: #000;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 10px;
-  padding: 2px 6px;
-  border-radius: 4px;
-  z-index: 5;
+  transition: all 0.3s ease;
 }
 
 /* Position badge */
@@ -129,15 +126,16 @@
   position: absolute;
   bottom: 4px;
   right: 4px;
-  background: rgba(0, 0, 0, 0.7);
-  color: var(--accent-green);
+  background: var(--accent-blue);
+  color: white;
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 9px;
-  padding: 2px 6px;
-  border-radius: 4px;
+  padding: 3px 8px;
+  border-radius: 10px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Size variants */
@@ -172,33 +170,34 @@
 }
 
 .footballer-card.large .card-frame {
-  padding: 6px;
+  padding: 8px;
   border-radius: 16px;
-}
-
-.footballer-card.large .card-rating {
-  font-size: 14px;
-  padding: 4px 10px;
 }
 
 .footballer-card.large .card-position {
   font-size: 11px;
-  padding: 3px 8px;
+  padding: 4px 10px;
 }
 
-/* Eliminated state - fold down animation */
+/* Eliminated state - flip down animation */
+.footballer-card.eliminated {
+  pointer-events: none;
+}
+
 .footballer-card.eliminated .card-frame {
-  transform: rotateX(80deg) translateY(10px);
+  transform: perspective(500px) rotateX(85deg) translateY(15px);
   transform-origin: bottom center;
-  opacity: 0.4;
+  opacity: 0.5;
+  background: linear-gradient(180deg, #666 0%, #444 100%);
+  border-color: #333;
 }
 
-.footballer-card.eliminated .card-frame::before {
-  background: linear-gradient(135deg, #444 0%, #222 100%);
+.footballer-card.eliminated .card-frame::after {
+  display: none;
 }
 
 .footballer-card.eliminated .card-image img {
-  filter: grayscale(100%) brightness(0.5);
+  filter: grayscale(100%) brightness(0.6);
 }
 
 .eliminated-overlay {
@@ -210,96 +209,126 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 5;
 }
 
 .eliminated-x {
-  font-size: 36px;
+  font-size: 40px;
   font-weight: bold;
   color: var(--accent-red);
-  text-shadow: 0 0 20px var(--accent-red);
+  text-shadow:
+    2px 2px 0 white,
+    -2px -2px 0 white,
+    2px -2px 0 white,
+    -2px 2px 0 white;
 }
 
 .footballer-card.small .eliminated-x {
-  font-size: 28px;
+  font-size: 32px;
 }
 
-/* Selected state (for guessing) */
+/* Selected state (for guessing) - blue frame */
 .footballer-card.selected .card-frame {
-  transform: translateY(-8px);
+  background: linear-gradient(
+    180deg,
+    #1976d2 0%,
+    #1565c0 50%,
+    #0d47a1 100%
+  );
+  border-color: #0d47a1;
+  transform: translateY(-10px) scale(1.05);
   box-shadow:
-    0 20px 40px rgba(0, 255, 136, 0.3),
-    0 0 40px rgba(0, 255, 136, 0.4);
+    0 20px 40px rgba(33, 150, 243, 0.4),
+    0 0 0 4px var(--accent-yellow),
+    0 0 30px rgba(33, 150, 243, 0.5);
+  animation: selected-pulse 1s ease infinite;
 }
 
-.footballer-card.selected .card-frame::before {
+.footballer-card.selected .card-frame::after {
+  background: linear-gradient(180deg, #0d47a1, #0a3d91);
+}
+
+@keyframes selected-pulse {
+  0%, 100% { box-shadow: 0 20px 40px rgba(33, 150, 243, 0.4), 0 0 0 4px var(--accent-yellow); }
+  50% { box-shadow: 0 20px 40px rgba(33, 150, 243, 0.6), 0 0 0 6px var(--accent-yellow); }
+}
+
+/* Secret card styling - green frame */
+.footballer-card.secret .card-frame {
   background: linear-gradient(
-    135deg,
-    var(--accent-green) 0%,
-    #00aa55 50%,
-    var(--accent-green) 100%
+    180deg,
+    #43a047 0%,
+    #388e3c 50%,
+    #2e7d32 100%
   );
-  animation: pulse-border 1.5s ease infinite;
+  border-color: #1b5e20;
+  box-shadow:
+    0 8px 25px rgba(76, 175, 80, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2);
 }
 
-@keyframes pulse-border {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
-}
-
-/* Secret card styling */
-.footballer-card.secret .card-frame::before {
-  background: linear-gradient(
-    135deg,
-    var(--accent-red) 0%,
-    #cc0033 50%,
-    var(--accent-red) 100%
-  );
+.footballer-card.secret .card-frame::after {
+  background: linear-gradient(180deg, #1b5e20, #0d3d14);
 }
 
 .secret-badge {
   margin-top: 12px;
-  background: linear-gradient(135deg, var(--accent-red), #cc0033);
+  background: linear-gradient(135deg, var(--accent-green), #2e7d32);
   color: white;
-  padding: 6px 16px;
-  border-radius: 20px;
+  padding: 8px 18px;
+  border-radius: 25px;
   font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+  box-shadow:
+    0 4px 15px rgba(76, 175, 80, 0.4),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+  border: 2px solid #1b5e20;
 }
 
 /* Card name */
 .card-name {
-  margin-top: 8px;
+  margin-top: 10px;
   font-family: var(--font-display);
-  font-size: 10px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
   color: var(--text-primary);
   text-align: center;
-  max-width: 80px;
+  max-width: 85px;
   line-height: 1.2;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  background: white;
+  padding: 4px 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .footballer-card.medium .card-name {
-  font-size: 12px;
-  max-width: 100px;
+  font-size: 13px;
+  max-width: 110px;
+  padding: 5px 10px;
 }
 
 .footballer-card.large .card-name {
   font-size: 16px;
-  max-width: 150px;
-  margin-top: 12px;
+  max-width: 160px;
+  margin-top: 14px;
+  padding: 6px 12px;
 }
 
 /* Animation for card appearance */
 .footballer-card {
-  animation: scale-in 0.3s ease backwards;
+  animation: card-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+@keyframes card-pop {
+  0% { opacity: 0; transform: scale(0.5) rotateY(-30deg); }
+  100% { opacity: 1; transform: scale(1) rotateY(0deg); }
 }
 
 .footballer-card:nth-child(1) { animation-delay: 0.02s; }
