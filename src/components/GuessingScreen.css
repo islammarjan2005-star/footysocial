@@ -6,66 +6,82 @@
 }
 
 .guess-header {
-  background: white;
-  border-radius: 16px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
   padding: 20px;
   margin-bottom: 15px;
   text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  animation: slide-up 0.3s ease;
 }
 
 .guess-header h2 {
   margin: 0 0 10px 0;
-  color: #1a1a2e;
+  color: var(--accent-gold);
   font-size: 24px;
 }
 
 .guess-header p {
   margin: 0;
-  color: #666;
+  color: var(--text-secondary);
+  font-size: 14px;
 }
 
+/* Grid */
 .guess-grid {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
   gap: 12px;
   padding: 15px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
   overflow-y: auto;
-  max-height: calc(100vh - 300px);
+  max-height: calc(100vh - 320px);
   align-content: start;
 }
 
+/* Confirmation */
 .guess-confirmation {
-  background: #fff8e7;
-  border-radius: 12px;
-  padding: 15px 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent-gold);
+  border-radius: 16px;
+  padding: 20px;
   margin-top: 15px;
   text-align: center;
+  animation: scale-in 0.3s ease;
 }
 
 .guess-confirmation p {
   margin: 0;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .guess-confirmation p strong {
-  color: #1a1a2e;
-  font-size: 18px;
+  color: var(--accent-gold);
+  font-size: 20px;
+  font-family: var(--font-display);
 }
 
 .guess-confirmation .warning {
-  margin-top: 10px;
-  color: #e63946;
-  font-size: 14px;
+  margin-top: 12px;
+  color: var(--accent-red);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
+/* Controls */
 .guess-controls {
   display: flex;
-  gap: 15px;
+  gap: 12px;
   margin-top: 15px;
 }
 
@@ -73,36 +89,44 @@
 .confirm-guess-btn {
   flex: 1;
   padding: 16px;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 1px;
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .cancel-btn {
-  background: #f1f3f4;
-  color: #666;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
 }
 
 .cancel-btn:hover {
-  background: #e4e6e7;
+  border-color: var(--text-muted);
+  color: var(--text-primary);
 }
 
 .confirm-guess-btn {
-  background: linear-gradient(135deg, #51cf66, #37b24d);
-  color: white;
+  background: linear-gradient(135deg, var(--accent-green), #00aa55);
+  color: #000;
+  box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
 }
 
 .confirm-guess-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 20px rgba(81, 207, 102, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(0, 255, 136, 0.4);
 }
 
 .confirm-guess-btn:disabled {
-  background: #adb5bd;
+  background: var(--bg-secondary);
+  color: var(--text-muted);
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 @media (min-width: 600px) {

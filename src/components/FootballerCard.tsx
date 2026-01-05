@@ -11,6 +11,17 @@ interface FootballerCardProps {
   size?: 'small' | 'medium' | 'large';
 }
 
+// Get short position code
+const getPositionCode = (position: string) => {
+  switch (position) {
+    case 'Goalkeeper': return 'GK';
+    case 'Defender': return 'DEF';
+    case 'Midfielder': return 'MID';
+    case 'Forward': return 'FWD';
+    default: return position.substring(0, 3).toUpperCase();
+  }
+};
+
 export function FootballerCard({
   footballer,
   isEliminated = false,
@@ -29,9 +40,17 @@ export function FootballerCard({
     >
       <div className="card-inner">
         <div className="card-frame">
-          <div className="card-image">
-            <img src={footballer.imageUrl} alt={footballer.name} />
-            {isEliminated && <div className="eliminated-overlay">✕</div>}
+          <div className="card-shine" />
+          <div className="card-image-container">
+            <div className="card-image">
+              <img src={footballer.imageUrl} alt={footballer.name} />
+            </div>
+            <div className="card-position">{getPositionCode(footballer.position)}</div>
+            {isEliminated && (
+              <div className="eliminated-overlay">
+                <span className="eliminated-x">✕</span>
+              </div>
+            )}
           </div>
         </div>
         {showName && <div className="card-name">{footballer.name}</div>}

@@ -2,6 +2,9 @@ import { useGame } from '../context/GameContext';
 import { FootballerCard } from './FootballerCard';
 import './GameOver.css';
 
+// Generate confetti particles
+const confettiColors = ['#ffd700', '#00ff88', '#00b4ff', '#ff4757', '#a855f7'];
+
 export function GameOver() {
   const { state, dispatch } = useGame();
 
@@ -13,8 +16,24 @@ export function GameOver() {
 
   return (
     <div className="game-over">
+      {/* Confetti particles */}
+      <div className="confetti-container">
+        {[...Array(50)].map((_, i) => (
+          <div
+            key={i}
+            className="confetti-piece"
+            style={{
+              left: `${Math.random() * 100}%`,
+              backgroundColor: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${3 + Math.random() * 2}s`,
+            }}
+          />
+        ))}
+      </div>
+
       <div className="game-over-card">
-        <div className="confetti">🎉</div>
+        <div className="trophy-icon">🏆</div>
         <h1>Winner!</h1>
         <div className="winner-name">{state.winner.name}</div>
 
@@ -23,7 +42,10 @@ export function GameOver() {
           <div className="reveals">
             {state.players.map((player) => (
               <div key={player.id} className="reveal-item">
-                <span className="reveal-player">{player.name}:</span>
+                <span className="reveal-player">
+                  {player.name}
+                  {player.id === state.winner?.id && <span className="crown">👑</span>}
+                </span>
                 <div className="reveal-card">
                   <FootballerCard
                     footballer={player.secretFootballer}
@@ -37,7 +59,8 @@ export function GameOver() {
         </div>
 
         <button className="play-again-btn" onClick={handlePlayAgain}>
-          🔄 Play Again
+          <span>Play Again</span>
+          <span className="btn-icon">↻</span>
         </button>
       </div>
     </div>
