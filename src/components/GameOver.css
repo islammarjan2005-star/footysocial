@@ -1,0 +1,107 @@
+.game-over {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.game-over-card {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.confetti {
+  font-size: 64px;
+  animation: celebrate 0.5s ease infinite alternate;
+}
+
+@keyframes celebrate {
+  from {
+    transform: scale(1) rotate(-5deg);
+  }
+  to {
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+
+.game-over-card h1 {
+  font-size: 48px;
+  color: #37b24d;
+  margin: 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.winner-name {
+  font-size: 32px;
+  font-weight: bold;
+  color: #1a1a2e;
+  margin-bottom: 30px;
+}
+
+.reveal-section {
+  background: #f8f9fa;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.reveal-section p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.reveals {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reveal-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.reveal-player {
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.reveal-card {
+  display: flex;
+  justify-content: center;
+}
+
+.play-again-btn {
+  width: 100%;
+  padding: 18px;
+  font-size: 20px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #f4a261, #e76f51);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.play-again-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(230, 111, 81, 0.4);
+}
+
+@media (min-width: 500px) {
+  .reveals {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

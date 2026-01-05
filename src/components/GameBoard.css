@@ -1,0 +1,131 @@
+.game-board {
+  min-height: 100vh;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-header {
+  background: white;
+  border-radius: 16px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.player-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.player-badge {
+  background: linear-gradient(135deg, #e63946, #c92a2a);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.remaining-count {
+  background: #f8f9fa;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  color: #666;
+}
+
+.header-hint {
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+}
+
+.footballer-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+  gap: 12px;
+  padding: 10px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  max-height: calc(100vh - 280px);
+  align-content: start;
+}
+
+.game-controls {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  padding: 0 10px;
+}
+
+.guess-btn,
+.end-turn-btn {
+  flex: 1;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.guess-btn {
+  background: linear-gradient(135deg, #f4a261, #e76f51);
+  color: white;
+}
+
+.guess-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(230, 111, 81, 0.4);
+}
+
+.end-turn-btn {
+  background: linear-gradient(135deg, #4dabf7, #228be6);
+  color: white;
+}
+
+.end-turn-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(34, 139, 230, 0.4);
+}
+
+.question-suggestions {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.question-suggestions p {
+  color: #666;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.suggestion-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.suggestion-tags span {
+  background: white;
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+  color: #666;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 600px) {
+  .footballer-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+  }
+}

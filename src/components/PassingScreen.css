@@ -1,0 +1,117 @@
+.passing-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.passing-card {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.pass-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.passing-card h2 {
+  font-size: 28px;
+  color: #1a1a2e;
+  margin: 0 0 10px 0;
+}
+
+.pass-instruction {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.pass-instruction strong {
+  color: #e63946;
+}
+
+.privacy-notice {
+  background: #fff8e7;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.lock-icon {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.privacy-notice p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.ready-btn {
+  width: 100%;
+  padding: 18px;
+  font-size: 18px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #51cf66, #37b24d);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ready-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(81, 207, 102, 0.4);
+}
+
+.turn-order {
+  margin-top: 30px;
+}
+
+.turn-order p {
+  color: #999;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.player-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.player-dot {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  background: #f1f3f4;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.player-dot.active {
+  background: #e63946;
+  color: white;
+  font-weight: bold;
+}

@@ -1,0 +1,113 @@
+.guessing-screen {
+  min-height: 100vh;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.guess-header {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 15px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.guess-header h2 {
+  margin: 0 0 10px 0;
+  color: #1a1a2e;
+  font-size: 24px;
+}
+
+.guess-header p {
+  margin: 0;
+  color: #666;
+}
+
+.guess-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+  gap: 12px;
+  padding: 15px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  max-height: calc(100vh - 300px);
+  align-content: start;
+}
+
+.guess-confirmation {
+  background: #fff8e7;
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.guess-confirmation p {
+  margin: 0;
+  color: #666;
+}
+
+.guess-confirmation p strong {
+  color: #1a1a2e;
+  font-size: 18px;
+}
+
+.guess-confirmation .warning {
+  margin-top: 10px;
+  color: #e63946;
+  font-size: 14px;
+}
+
+.guess-controls {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.cancel-btn,
+.confirm-guess-btn {
+  flex: 1;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cancel-btn {
+  background: #f1f3f4;
+  color: #666;
+}
+
+.cancel-btn:hover {
+  background: #e4e6e7;
+}
+
+.confirm-guess-btn {
+  background: linear-gradient(135deg, #51cf66, #37b24d);
+  color: white;
+}
+
+.confirm-guess-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(81, 207, 102, 0.4);
+}
+
+.confirm-guess-btn:disabled {
+  background: #adb5bd;
+  cursor: not-allowed;
+}
+
+@media (min-width: 600px) {
+  .guess-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+  }
+}
