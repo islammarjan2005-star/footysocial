@@ -10,9 +10,9 @@ export interface Footballer {
   imageUrl: string;
 }
 
-// SoFIFA/EA FC player image URLs
-const getPlayerImage = (fifaId: number) =>
-  `https://cdn.sofifa.net/players/${String(fifaId).slice(0, 3)}/${String(fifaId).slice(3)}/25_120.png`;
+// FotMob CDN - reliable source for player images
+const getPlayerImage = (fotmobId: number) =>
+  `https://images.fotmob.com/image_resources/logo/playerimages/${fotmobId}.png`;
 
 export const footballers: Footballer[] = [
   // Premier League Stars
@@ -25,7 +25,7 @@ export const footballers: Footballer[] = [
     nationality: "Norway",
     hairColor: "Blonde",
     facialHair: false,
-    imageUrl: getPlayerImage(239085)
+    imageUrl: getPlayerImage(737066)
   },
   {
     id: 2,
@@ -36,7 +36,7 @@ export const footballers: Footballer[] = [
     nationality: "Egypt",
     hairColor: "Black",
     facialHair: true,
-    imageUrl: getPlayerImage(209331)
+    imageUrl: getPlayerImage(292462)
   },
   {
     id: 3,
@@ -47,7 +47,7 @@ export const footballers: Footballer[] = [
     nationality: "Belgium",
     hairColor: "Red",
     facialHair: true,
-    imageUrl: getPlayerImage(192985)
+    imageUrl: getPlayerImage(169200)
   },
   {
     id: 4,
@@ -58,7 +58,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getPlayerImage(246669)
+    imageUrl: getPlayerImage(961995)
   },
   {
     id: 5,
@@ -69,7 +69,7 @@ export const footballers: Footballer[] = [
     nationality: "Portugal",
     hairColor: "Brown",
     facialHair: true,
-    imageUrl: getPlayerImage(212198)
+    imageUrl: getPlayerImage(422685)
   },
   {
     id: 6,
@@ -80,7 +80,7 @@ export const footballers: Footballer[] = [
     nationality: "Netherlands",
     hairColor: "Black",
     facialHair: true,
-    imageUrl: getPlayerImage(203376)
+    imageUrl: getPlayerImage(209405)
   },
   // La Liga Stars
   {
@@ -92,7 +92,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getPlayerImage(246126)
+    imageUrl: getPlayerImage(1077894)
   },
   {
     id: 8,
@@ -103,7 +103,7 @@ export const footballers: Footballer[] = [
     nationality: "Brazil",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getPlayerImage(238794)
+    imageUrl: getPlayerImage(846033)
   },
   {
     id: 9,
@@ -114,7 +114,7 @@ export const footballers: Footballer[] = [
     nationality: "Poland",
     hairColor: "Brown",
     facialHair: false,
-    imageUrl: getPlayerImage(188545)
+    imageUrl: getPlayerImage(93447)
   },
   {
     id: 10,
@@ -125,7 +125,7 @@ export const footballers: Footballer[] = [
     nationality: "Spain",
     hairColor: "Brown",
     facialHair: false,
-    imageUrl: getPlayerImage(250007)
+    imageUrl: getPlayerImage(1083323)
   },
   {
     id: 11,
@@ -136,7 +136,7 @@ export const footballers: Footballer[] = [
     nationality: "Spain",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getPlayerImage(271195)
+    imageUrl: getPlayerImage(1467236)
   },
   {
     id: 12,
@@ -147,7 +147,7 @@ export const footballers: Footballer[] = [
     nationality: "Belgium",
     hairColor: "Brown",
     facialHair: true,
-    imageUrl: getPlayerImage(192119)
+    imageUrl: getPlayerImage(170323)
   },
   // Serie A Stars
   {
@@ -159,7 +159,7 @@ export const footballers: Footballer[] = [
     nationality: "Argentina",
     hairColor: "Brown",
     facialHair: true,
-    imageUrl: getPlayerImage(224285)
+    imageUrl: getPlayerImage(690230)
   },
   {
     id: 14,
@@ -170,7 +170,7 @@ export const footballers: Footballer[] = [
     nationality: "Portugal",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getPlayerImage(241721)
+    imageUrl: getPlayerImage(848844)
   },
   {
     id: 15,
@@ -181,7 +181,7 @@ export const footballers: Footballer[] = [
     nationality: "Nigeria",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getPlayerImage(237392)
+    imageUrl: getPlayerImage(687681)
   },
   // Bundesliga Stars
   {
@@ -193,7 +193,7 @@ export const footballers: Footballer[] = [
     nationality: "Germany",
     hairColor: "Blonde",
     facialHair: false,
-    imageUrl: getPlayerImage(247174)
+    imageUrl: getPlayerImage(1152455)
   },
   {
     id: 17,
@@ -204,7 +204,7 @@ export const footballers: Footballer[] = [
     nationality: "Germany",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getPlayerImage(258005)
+    imageUrl: getPlayerImage(1156141)
   },
   {
     id: 18,
@@ -215,7 +215,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Brown",
     facialHair: true,
-    imageUrl: getPlayerImage(202126)
+    imageUrl: getPlayerImage(194165)
   },
   // La Liga / Ligue 1 Stars
   {
@@ -227,7 +227,7 @@ export const footballers: Footballer[] = [
     nationality: "France",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getPlayerImage(231747)
+    imageUrl: getPlayerImage(701154)
   },
   {
     id: 20,
@@ -238,7 +238,7 @@ export const footballers: Footballer[] = [
     nationality: "France",
     hairColor: "Black",
     facialHair: true,
-    imageUrl: getPlayerImage(231443)
+    imageUrl: getPlayerImage(692984)
   },
   // More Premier League
   {
@@ -250,7 +250,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Brown",
     facialHair: false,
-    imageUrl: getPlayerImage(232698)
+    imageUrl: getPlayerImage(654096)
   },
   {
     id: 22,
@@ -261,7 +261,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Black",
     facialHair: true,
-    imageUrl: getPlayerImage(231677)
+    imageUrl: getPlayerImage(696365)
   },
   {
     id: 23,
@@ -272,7 +272,7 @@ export const footballers: Footballer[] = [
     nationality: "Brazil",
     hairColor: "Brown",
     facialHair: true,
-    imageUrl: getPlayerImage(212831)
+    imageUrl: getPlayerImage(319784)
   },
   {
     id: 24,
@@ -283,7 +283,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Blonde",
     facialHair: false,
-    imageUrl: getPlayerImage(237692)
+    imageUrl: getPlayerImage(815006)
   }
 ];
 
