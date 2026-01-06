@@ -1,4 +1,5 @@
 import type { Footballer } from '../data/footballers';
+import { FlagIcon, CrossIcon } from './Icons';
 import './FootballerCard.css';
 
 interface FootballerCardProps {
@@ -46,9 +47,12 @@ export function FootballerCard({
               <img src={footballer.imageUrl} alt={footballer.name} />
             </div>
             <div className="card-position">{getPositionCode(footballer.position)}</div>
+            <div className="card-flag">
+              <FlagIcon country={footballer.nationality} size={18} />
+            </div>
             {isEliminated && (
               <div className="eliminated-overlay">
-                <span className="eliminated-x">✕</span>
+                <span className="eliminated-x"><CrossIcon size={32} color="#fff" /></span>
               </div>
             )}
           </div>

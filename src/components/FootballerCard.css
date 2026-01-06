@@ -138,6 +138,25 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* Flag badge */
+.card-flag {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  background: white;
+  padding: 2px;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.card-flag svg {
+  display: block;
+}
+
 /* Size variants */
 .footballer-card.small .card-image-container {
   width: 70px;
@@ -214,18 +233,13 @@
 }
 
 .eliminated-x {
-  font-size: 40px;
-  font-weight: bold;
-  color: var(--accent-red);
-  text-shadow:
-    2px 2px 0 white,
-    -2px -2px 0 white,
-    2px -2px 0 white,
-    -2px 2px 0 white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.footballer-card.small .eliminated-x {
-  font-size: 32px;
+.eliminated-x svg {
+  filter: drop-shadow(2px 2px 0 white) drop-shadow(-2px -2px 0 white);
 }
 
 /* Selected state (for guessing) - blue frame */
