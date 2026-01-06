@@ -111,6 +111,74 @@ const getPlayerRating = (footballer: Footballer): number => {
   return baseRatings[footballer.name] || 85;
 };
 
+// Player ages (approximate for 2024/25 season)
+const getPlayerAge = (name: string): number => {
+  const ages: Record<string, number> = {
+    'Erling Haaland': 24,
+    'Mohamed Salah': 32,
+    'Kevin De Bruyne': 33,
+    'Bukayo Saka': 23,
+    'Bruno Fernandes': 30,
+    'Virgil van Dijk': 33,
+    'Jude Bellingham': 21,
+    'Vinicius Jr': 24,
+    'Robert Lewandowski': 36,
+    'Pedri': 22,
+    'Lamine Yamal': 17,
+    'Thibaut Courtois': 32,
+    'Lautaro Martinez': 27,
+    'Rafael Leao': 25,
+    'Victor Osimhen': 25,
+    'Florian Wirtz': 21,
+    'Jamal Musiala': 21,
+    'Harry Kane': 31,
+    'Kylian Mbappe': 26,
+    'Ousmane Dembele': 27,
+    'Declan Rice': 25,
+    'Marcus Rashford': 27,
+    'Alisson Becker': 32,
+    'Phil Foden': 24,
+  };
+  return ages[name] || 25;
+};
+
+// Player preferred foot
+const getPreferredFoot = (name: string): string => {
+  const leftFooted = ['Lionel Messi', 'Mohamed Salah', 'Phil Foden', 'Rafael Leao', 'Florian Wirtz'];
+  return leftFooted.includes(name) ? 'Left' : 'Right';
+};
+
+// Player jersey numbers
+const getJerseyNumber = (name: string): number => {
+  const numbers: Record<string, number> = {
+    'Erling Haaland': 9,
+    'Mohamed Salah': 11,
+    'Kevin De Bruyne': 17,
+    'Bukayo Saka': 7,
+    'Bruno Fernandes': 8,
+    'Virgil van Dijk': 4,
+    'Jude Bellingham': 5,
+    'Vinicius Jr': 7,
+    'Robert Lewandowski': 9,
+    'Pedri': 8,
+    'Lamine Yamal': 19,
+    'Thibaut Courtois': 1,
+    'Lautaro Martinez': 10,
+    'Rafael Leao': 10,
+    'Victor Osimhen': 9,
+    'Florian Wirtz': 10,
+    'Jamal Musiala': 42,
+    'Harry Kane': 9,
+    'Kylian Mbappe': 9,
+    'Ousmane Dembele': 10,
+    'Declan Rice': 41,
+    'Marcus Rashford': 10,
+    'Alisson Becker': 1,
+    'Phil Foden': 47,
+  };
+  return numbers[name] || 10;
+};
+
 export function SquadBuilder({ onBack }: SquadBuilderProps) {
   const [currentFormation, setCurrentFormation] = useState('4-3-3');
   const [squad, setSquad] = useState<(Footballer | null)[]>(Array(11).fill(null));
@@ -118,6 +186,7 @@ export function SquadBuilder({ onBack }: SquadBuilderProps) {
   const [showPlayerSelect, setShowPlayerSelect] = useState(false);
   const [teamRating, setTeamRating] = useState(0);
   const [chemistry, setChemistry] = useState(0);
+  const [viewingPlayer, setViewingPlayer] = useState<{ player: Footballer; slotIndex: number } | null>(null);
 
   // Initialize with random squad
   useEffect(() => {
@@ -151,8 +220,23 @@ export function SquadBuilder({ onBack }: SquadBuilderProps) {
   }, [squad]);
 
   const handleSlotClick = (index: number) => {
-    setSelectedSlot(index);
-    setShowPlayerSelect(true);
+    const player = squad[index];
+    if (player) {
+      // Show player details if slot has a player
+      setViewingPlayer({ player, slotIndex: index });
+    } else {
+      // Open player select if slot is empty
+      setSelectedSlot(index);
+      setShowPlayerSelect(true);
+    }
+  };
+
+  const handleChangePlayer = () => {
+    if (viewingPlayer) {
+      setSelectedSlot(viewingPlayer.slotIndex);
+      setViewingPlayer(null);
+      setShowPlayerSelect(true);
+    }
   };
 
   const handlePlayerSelect = (player: Footballer) => {
@@ -299,6 +383,77 @@ export function SquadBuilder({ onBack }: SquadBuilderProps) {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Player Details Modal */}
+      {viewingPlayer && (
+        <div className="sb-modal-overlay" onClick={() => setViewingPlayer(null)}>
+          <div className="sb-details-modal" onClick={e => e.stopPropagation()}>
+            <button className="sb-modal-close details-close" onClick={() => setViewingPlayer(null)}>×</button>
+
+            <div className="sb-details-card">
+              <div className="sb-details-card-bg"></div>
+              <div className="sb-details-rating">{getPlayerRating(viewingPlayer.player)}</div>
+              <div className="sb-details-position">{viewingPlayer.player.position.substring(0, 3).toUpperCase()}</div>
+              <div className="sb-details-face">
+                <img
+                  src={viewingPlayer.player.imageUrl}
+                  alt={viewingPlayer.player.name}
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null;
+                    target.src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(viewingPlayer.player.name)}`;
+                  }}
+                />
+              </div>
+              <div className="sb-details-name">{viewingPlayer.player.name}</div>
+              <div className={`sb-details-flag ${getFlagClass(viewingPlayer.player.nationality)}`}></div>
+            </div>
+
+            <div className="sb-details-info">
+              <div className="sb-details-row">
+                <span className="sb-details-label">Full Name</span>
+                <span className="sb-details-value">{viewingPlayer.player.name}</span>
+              </div>
+              <div className="sb-details-row">
+                <span className="sb-details-label">Club</span>
+                <span className="sb-details-value">{viewingPlayer.player.club}</span>
+              </div>
+              <div className="sb-details-row">
+                <span className="sb-details-label">League</span>
+                <span className="sb-details-value">{viewingPlayer.player.league}</span>
+              </div>
+              <div className="sb-details-row">
+                <span className="sb-details-label">Position</span>
+                <span className="sb-details-value">{viewingPlayer.player.position}</span>
+              </div>
+              <div className="sb-details-row">
+                <span className="sb-details-label">Nationality</span>
+                <span className="sb-details-value">{viewingPlayer.player.nationality}</span>
+              </div>
+              <div className="sb-details-row">
+                <span className="sb-details-label">Age</span>
+                <span className="sb-details-value">{getPlayerAge(viewingPlayer.player.name)}</span>
+              </div>
+              <div className="sb-details-row">
+                <span className="sb-details-label">Jersey Number</span>
+                <span className="sb-details-value">#{getJerseyNumber(viewingPlayer.player.name)}</span>
+              </div>
+              <div className="sb-details-row">
+                <span className="sb-details-label">Preferred Foot</span>
+                <span className="sb-details-value">{getPreferredFoot(viewingPlayer.player.name)}</span>
+              </div>
+              <div className="sb-details-row">
+                <span className="sb-details-label">Overall Rating</span>
+                <span className="sb-details-value rating">{getPlayerRating(viewingPlayer.player)}</span>
+              </div>
+            </div>
+
+            <button className="sb-btn primary sb-change-btn" onClick={handleChangePlayer}>
+              Change Player
+            </button>
           </div>
         </div>
       )}
