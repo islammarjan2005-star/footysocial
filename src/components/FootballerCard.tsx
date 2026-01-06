@@ -147,6 +147,12 @@ export function FootballerCard({
             {isEliminated && (
               <div className="eliminated-overlay">
                 <span className="eliminated-x"><CrossIcon size={32} color="#fff" /></span>
+                {onClick && (
+                  <div className="revive-hint">
+                    <span className="revive-icon">↩</span>
+                    <span className="revive-text">Tap to revive</span>
+                  </div>
+                )}
               </div>
             )}
           </div>

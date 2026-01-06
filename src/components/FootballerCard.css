@@ -379,6 +379,63 @@
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
 }
 
+/* Revive hint on eliminated cards */
+.revive-hint {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  animation: revive-hint-pulse 2s ease-in-out infinite;
+}
+
+.revive-icon {
+  font-size: 18px;
+  color: #4caf50;
+  text-shadow: 0 0 8px #4caf50, 0 0 12px rgba(76, 175, 80, 0.5);
+  animation: revive-icon-bounce 1.5s ease-in-out infinite;
+}
+
+.revive-text {
+  font-size: 8px;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  opacity: 0.9;
+}
+
+@keyframes revive-hint-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes revive-icon-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* Hide revive hint on hover - show action state instead */
+.footballer-card.eliminated.clickable:hover .revive-hint {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.footballer-card.eliminated.clickable:hover .eliminated-overlay {
+  background: rgba(76, 175, 80, 0.4);
+  transition: background 0.2s;
+}
+
+.footballer-card.eliminated.clickable:hover .eliminated-x {
+  transform: scale(0.8);
+  opacity: 0.5;
+  transition: all 0.2s;
+}
+
 /* Particle burst effect */
 .particle-container {
   position: absolute;
