@@ -29,7 +29,7 @@ export const footballers: Footballer[] = [
     nationality: "Norway",
     hairColor: "Blonde",
     facialHair: false,
-    imageUrl: getPLImage(223094)
+    imageUrl: getPLImage(65970)
   },
   {
     id: 2,
@@ -40,7 +40,7 @@ export const footballers: Footballer[] = [
     nationality: "Egypt",
     hairColor: "Black",
     facialHair: true,
-    imageUrl: getPLImage(5178)
+    imageUrl: getPLImage(25327)
   },
   {
     id: 3,
@@ -73,7 +73,7 @@ export const footballers: Footballer[] = [
     nationality: "Portugal",
     hairColor: "Brown",
     facialHair: true,
-    imageUrl: getPLImage(23396)
+    imageUrl: getPLImage(141746)
   },
   {
     id: 6,
@@ -84,7 +84,7 @@ export const footballers: Footballer[] = [
     nationality: "Netherlands",
     hairColor: "Black",
     facialHair: true,
-    imageUrl: getPLImage(5140)
+    imageUrl: getPLImage(139208)
   },
   // La Liga Stars - using avatars
   {
@@ -254,7 +254,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Brown",
     facialHair: false,
-    imageUrl: getPLImage(15202)
+    imageUrl: getPLImage(50447)
   },
   {
     id: 22,
