@@ -537,3 +537,262 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* FUT Squad Builder Card Styles */
+.game-card.fut-style {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-color: #c9a227;
+}
+
+.game-card.fut-style .game-card-badge {
+  background: linear-gradient(135deg, #c9a227, #f0d048);
+  color: #1a1a2e;
+}
+
+.game-card.fut-style::before {
+  background: linear-gradient(90deg, #c9a227, #f0d048, #c9a227);
+}
+
+.game-card.fut-style .game-card-title,
+.game-card.fut-style .game-card-subtitle {
+  color: #f0d048;
+}
+
+.game-card.fut-style .game-card-description {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.game-card.fut-style .game-card-features .feature {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.game-card.fut-style .play-button {
+  background: linear-gradient(135deg, #c9a227, #f0d048);
+  color: #1a1a2e;
+}
+
+.game-card.fut-style .play-button.disabled {
+  background: rgba(201, 162, 39, 0.3);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* FUT Preview */
+.fut-preview {
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.fut-pitch {
+  background: linear-gradient(180deg,
+    #1e4d2b 0%,
+    #2d6a3e 20%,
+    #1e4d2b 40%,
+    #2d6a3e 60%,
+    #1e4d2b 80%,
+    #2d6a3e 100%
+  );
+  border-radius: 12px;
+  padding: 1rem 0.5rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 160px;
+}
+
+.fut-pitch::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+}
+
+.fut-pitch::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.fut-formation {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.fut-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.fut-row.front {
+  margin-bottom: 0.25rem;
+}
+
+.fut-row.mid {
+  margin-top: 0.25rem;
+}
+
+/* FUT Player Card */
+.fut-player-card {
+  width: 50px;
+  height: 65px;
+  background: linear-gradient(165deg,
+    #c9a227 0%,
+    #f0d048 30%,
+    #c9a227 60%,
+    #a88b1f 100%
+  );
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border: 1px solid #a88b1f;
+}
+
+.fut-card-rating {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1;
+  margin-top: 1px;
+}
+
+.fut-card-pos {
+  font-size: 6px;
+  font-weight: 700;
+  color: #1a1a2e;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.fut-card-face {
+  width: 32px;
+  height: 32px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #e8d5a3 0%, #c9a227 100%);
+  margin: 2px 0;
+}
+
+.fut-card-face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.fut-card-flag {
+  width: 14px;
+  height: 10px;
+  border-radius: 1px;
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Flag Colors */
+.flag-br {
+  background: linear-gradient(180deg, #009c3b 0%, #009c3b 33%, #ffdf00 33%, #ffdf00 66%, #009c3b 66%);
+}
+
+.flag-no {
+  background: linear-gradient(180deg, #ef2b2d 0%, #ef2b2d 100%);
+  position: relative;
+}
+
+.flag-no::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 25%;
+  width: 20%;
+  background: #002868;
+}
+
+.flag-eg {
+  background: linear-gradient(180deg, #ce1126 0%, #ce1126 33%, #fff 33%, #fff 66%, #000 66%);
+}
+
+.flag-be {
+  background: linear-gradient(90deg, #000 0%, #000 33%, #ffd90c 33%, #ffd90c 66%, #f31830 66%);
+}
+
+.flag-en {
+  background: #fff;
+  position: relative;
+}
+
+.flag-en::before {
+  content: '';
+  position: absolute;
+  top: 35%;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: #cf142b;
+}
+
+.flag-en::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 35%;
+  width: 30%;
+  background: #cf142b;
+}
+
+.fut-formation-label {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  margin-top: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive FUT Card */
+@media (max-width: 480px) {
+  .fut-player-card {
+    width: 42px;
+    height: 55px;
+  }
+
+  .fut-card-face {
+    width: 26px;
+    height: 26px;
+  }
+
+  .fut-card-rating {
+    font-size: 8px;
+  }
+
+  .fut-card-pos {
+    font-size: 5px;
+  }
+
+  .fut-card-flag {
+    width: 12px;
+    height: 8px;
+  }
+}

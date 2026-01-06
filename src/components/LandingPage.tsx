@@ -107,6 +107,86 @@ export function LandingPage({ onPlayGuessWho }: LandingPageProps) {
             </button>
           </div>
 
+          {/* Squad Builder Game Card - FUT Style */}
+          <div className="game-card featured fut-style">
+            <div className="game-card-badge">New</div>
+            <div className="fut-preview">
+              <div className="fut-pitch">
+                <div className="fut-formation">
+                  {/* Front 3 */}
+                  <div className="fut-row front">
+                    <div className="fut-player-card">
+                      <div className="fut-card-rating">92</div>
+                      <div className="fut-card-pos">LW</div>
+                      <div className="fut-card-face">
+                        <img src="https://www.fifarosters.com/assets/players/fifa25/faces/238794.png" alt="Vini Jr" />
+                      </div>
+                      <div className="fut-card-flag flag-br"></div>
+                    </div>
+                    <div className="fut-player-card">
+                      <div className="fut-card-rating">91</div>
+                      <div className="fut-card-pos">ST</div>
+                      <div className="fut-card-face">
+                        <img src="https://www.fifarosters.com/assets/players/fifa25/faces/239085.png" alt="Haaland" />
+                      </div>
+                      <div className="fut-card-flag flag-no"></div>
+                    </div>
+                    <div className="fut-player-card">
+                      <div className="fut-card-rating">90</div>
+                      <div className="fut-card-pos">RW</div>
+                      <div className="fut-card-face">
+                        <img src="https://www.fifarosters.com/assets/players/fifa25/faces/209331.png" alt="Salah" />
+                      </div>
+                      <div className="fut-card-flag flag-eg"></div>
+                    </div>
+                  </div>
+                  {/* Midfield 3 */}
+                  <div className="fut-row mid">
+                    <div className="fut-player-card">
+                      <div className="fut-card-rating">91</div>
+                      <div className="fut-card-pos">CM</div>
+                      <div className="fut-card-face">
+                        <img src="https://www.fifarosters.com/assets/players/fifa25/faces/192985.png" alt="KDB" />
+                      </div>
+                      <div className="fut-card-flag flag-be"></div>
+                    </div>
+                    <div className="fut-player-card">
+                      <div className="fut-card-rating">89</div>
+                      <div className="fut-card-pos">CDM</div>
+                      <div className="fut-card-face">
+                        <img src="https://www.fifarosters.com/assets/players/fifa25/faces/234378.png" alt="Rice" />
+                      </div>
+                      <div className="fut-card-flag flag-en"></div>
+                    </div>
+                    <div className="fut-player-card">
+                      <div className="fut-card-rating">90</div>
+                      <div className="fut-card-pos">CM</div>
+                      <div className="fut-card-face">
+                        <img src="https://www.fifarosters.com/assets/players/fifa25/faces/252371.png" alt="Bellingham" />
+                      </div>
+                      <div className="fut-card-flag flag-en"></div>
+                    </div>
+                  </div>
+                  {/* Formation Label */}
+                  <div className="fut-formation-label">4-3-3</div>
+                </div>
+              </div>
+            </div>
+            <h3 className="game-card-title">Squad Builder</h3>
+            <p className="game-card-subtitle">FUT Challenge</p>
+            <p className="game-card-description">
+              Build your ultimate dream team! Arrange players in formations and compete for the best chemistry.
+            </p>
+            <div className="game-card-features">
+              <span className="feature"><UsersIcon size={16} /> 1-4 Players</span>
+              <span className="feature"><ClockIcon size={16} /> 15-20 min</span>
+              <span className="feature"><PhoneIcon size={16} /> Draft Mode</span>
+            </div>
+            <button className="play-button disabled">
+              <span>Coming Soon</span>
+            </button>
+          </div>
+
           {/* Coming Soon Cards */}
           <div className="game-card coming-soon">
             <div className="game-card-badge">Coming Soon</div>
