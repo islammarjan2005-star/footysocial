@@ -254,7 +254,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Brown",
     facialHair: false,
-    imageUrl: getPLImage(54694)
+    imageUrl: getPLImage(15202)
   },
   {
     id: 22,
@@ -287,7 +287,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Blonde",
     facialHair: false,
-    imageUrl: getPLImage(59215)
+    imageUrl: getPLImage(14805)
   }
 ];
 
