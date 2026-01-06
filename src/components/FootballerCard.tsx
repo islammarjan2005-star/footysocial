@@ -44,7 +44,15 @@ export function FootballerCard({
           <div className="card-shine" />
           <div className="card-image-container">
             <div className="card-image">
-              <img src={footballer.imageUrl} alt={footballer.name} />
+              <img
+                src={footballer.imageUrl}
+                alt={footballer.name}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.onerror = null;
+                  target.src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(footballer.name)}&backgroundColor=b6e3f4`;
+                }}
+              />
             </div>
             <div className="card-position">{getPositionCode(footballer.position)}</div>
             <div className="card-flag">
