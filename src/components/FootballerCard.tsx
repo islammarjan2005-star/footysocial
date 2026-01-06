@@ -115,6 +115,11 @@ export function FootballerCard({
         </div>
       )}
 
+      {/* Revive button - floats above eliminated card */}
+      {isEliminated && onClick && (
+        <div className="revive-btn">↩</div>
+      )}
+
       <div className="card-inner">
         <div className="card-frame">
           <div className="card-shine" />
@@ -153,10 +158,6 @@ export function FootballerCard({
         </div>
         {showName && <div className="card-name">{footballer.name}</div>}
 
-        {/* Revive button - just icon */}
-        {isEliminated && onClick && (
-          <div className="revive-btn">↩</div>
-        )}
         {isSecret && (
           <div className="secret-badge">
             <span>YOUR SECRET</span>

@@ -379,39 +379,45 @@
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
 }
 
-/* Revive button on eliminated cards - circular icon */
+/* Revive button on eliminated cards - circular icon floating above */
 .revive-btn {
   position: absolute;
-  bottom: -35px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #4caf50, #2e7d32);
   border-radius: 50%;
-  font-size: 18px;
+  font-size: 20px;
   color: #fff;
-  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.6), 0 0 15px rgba(76, 175, 80, 0.4);
-  z-index: 100;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.7), 0 0 20px rgba(76, 175, 80, 0.5);
+  z-index: 200;
   animation: revive-btn-pulse 1.5s ease-in-out infinite;
   cursor: pointer;
-  border: 2px solid #1b5e20;
+  border: 3px solid #1b5e20;
+  pointer-events: auto;
 }
 
 .revive-btn:hover {
-  transform: translateX(-50%) scale(1.15);
-  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.8), 0 0 25px rgba(76, 175, 80, 0.6);
+  transform: translateX(-50%) scale(1.2);
+  box-shadow: 0 6px 25px rgba(76, 175, 80, 0.9), 0 0 35px rgba(76, 175, 80, 0.7);
+  background: linear-gradient(135deg, #66bb6a, #43a047);
+}
+
+.revive-btn:active {
+  transform: translateX(-50%) scale(0.95);
 }
 
 @keyframes revive-btn-pulse {
   0%, 100% {
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.5), 0 0 15px rgba(76, 175, 80, 0.3);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.6), 0 0 20px rgba(76, 175, 80, 0.4);
   }
   50% {
-    box-shadow: 0 4px 20px rgba(76, 175, 80, 0.8), 0 0 25px rgba(76, 175, 80, 0.6);
+    box-shadow: 0 6px 25px rgba(76, 175, 80, 0.9), 0 0 35px rgba(76, 175, 80, 0.7);
   }
 }
 
