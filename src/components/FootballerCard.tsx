@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { Footballer } from '../data/footballers';
 import { FlagIcon, CrossIcon } from './Icons';
 import './FootballerCard.css';
@@ -52,6 +52,21 @@ export function FootballerCard({
 }: FootballerCardProps) {
   const [isFlipping, setIsFlipping] = useState(false);
   const [showParticles, setShowParticles] = useState(false);
+  const [isReviving, setIsReviving] = useState(false);
+  const [showReviveSparkles, setShowReviveSparkles] = useState(false);
+  const wasEliminated = useRef(isEliminated);
+
+  // Detect revival (eliminated -> not eliminated)
+  useEffect(() => {
+    if (wasEliminated.current && !isEliminated) {
+      // Player is being revived!
+      setIsReviving(true);
+      setShowReviveSparkles(true);
+      setTimeout(() => setIsReviving(false), 800);
+      setTimeout(() => setShowReviveSparkles(false), 1000);
+    }
+    wasEliminated.current = isEliminated;
+  }, [isEliminated]);
 
   const handleClick = () => {
     if (onClick && !isEliminated) {
@@ -66,6 +81,7 @@ export function FootballerCard({
         onClick();
       }, 300);
     } else if (onClick) {
+      // Clicking eliminated card to revive - just call onClick
       onClick();
     }
   };
@@ -76,7 +92,7 @@ export function FootballerCard({
     <div
       className={`footballer-card ${size} ${isEliminated ? 'eliminated' : ''} ${
         isSecret ? 'secret' : ''
-      } ${isSelected ? 'selected' : ''} ${onClick ? 'clickable' : ''} ${isFlipping ? 'flipping' : ''}`}
+      } ${isSelected ? 'selected' : ''} ${onClick ? 'clickable' : ''} ${isFlipping ? 'flipping' : ''} ${isReviving ? 'reviving' : ''}`}
       onClick={handleClick}
     >
       {/* Particle burst effect */}
@@ -85,6 +101,17 @@ export function FootballerCard({
           {[...Array(8)].map((_, i) => (
             <div key={i} className="particle" style={{ '--i': i } as React.CSSProperties} />
           ))}
+        </div>
+      )}
+
+      {/* Revival sparkle effect */}
+      {showReviveSparkles && (
+        <div className="revive-sparkles">
+          {[...Array(12)].map((_, i) => (
+            <div key={i} className="sparkle" style={{ '--angle': `${i * 30}deg`, '--delay': `${i * 0.05}s` } as React.CSSProperties} />
+          ))}
+          <div className="revive-ring" />
+          <div className="revive-ring ring-2" />
         </div>
       )}
 

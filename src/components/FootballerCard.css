@@ -609,3 +609,162 @@
   transform: scale(0.95);
   transition: transform 0.1s ease;
 }
+
+/* ===== REVIVAL ANIMATION ===== */
+.footballer-card.reviving .card-frame {
+  animation: revive-flip 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes revive-flip {
+  0% {
+    transform: perspective(500px) rotateX(75deg) translateY(10px) scale(0.9);
+    opacity: 0.4;
+  }
+  30% {
+    transform: perspective(500px) rotateX(-10deg) translateY(-20px) scale(1.1);
+    opacity: 1;
+  }
+  50% {
+    transform: perspective(500px) rotateX(5deg) translateY(-10px) scale(1.05);
+  }
+  70% {
+    transform: perspective(500px) rotateX(-3deg) translateY(-5px) scale(1.02);
+  }
+  100% {
+    transform: perspective(500px) rotateX(0deg) translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Revival sparkle container */
+.revive-sparkles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 200;
+  pointer-events: none;
+}
+
+/* Individual sparkles that burst outward */
+.sparkle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, #fff 0%, #ffd700 40%, #ff9800 100%);
+  border-radius: 50%;
+  box-shadow:
+    0 0 10px #ffd700,
+    0 0 20px #ff9800,
+    0 0 30px #ffd700;
+  animation: sparkle-burst 0.8s ease-out forwards;
+  animation-delay: var(--delay);
+}
+
+@keyframes sparkle-burst {
+  0% {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(0) scale(1);
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-80px) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Expanding rings */
+.revive-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 3px solid #ffd700;
+  border-radius: 50%;
+  animation: ring-expand 0.8s ease-out forwards;
+  box-shadow:
+    0 0 15px #ffd700,
+    inset 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+.revive-ring.ring-2 {
+  animation-delay: 0.15s;
+  border-color: #4caf50;
+  box-shadow:
+    0 0 15px #4caf50,
+    inset 0 0 15px rgba(76, 175, 80, 0.3);
+}
+
+@keyframes ring-expand {
+  0% {
+    width: 20px;
+    height: 20px;
+    opacity: 1;
+    border-width: 3px;
+  }
+  100% {
+    width: 150px;
+    height: 150px;
+    opacity: 0;
+    border-width: 1px;
+  }
+}
+
+/* Revival glow on the card */
+.footballer-card.reviving .card-glow {
+  opacity: 1;
+  background: linear-gradient(45deg, #4caf50, #8bc34a, #4caf50);
+  animation: revive-glow 0.8s ease-out;
+}
+
+@keyframes revive-glow {
+  0% {
+    opacity: 0;
+    filter: blur(5px);
+  }
+  30% {
+    opacity: 1;
+    filter: blur(15px);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(8px);
+  }
+}
+
+/* Flash effect on card frame during revival */
+.footballer-card.reviving .card-frame::before {
+  animation: revive-flash 0.6s ease-out;
+}
+
+@keyframes revive-flash {
+  0% {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 215, 0, 0.6) 50%,
+      transparent 100%
+    );
+  }
+  50% {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(76, 175, 80, 0.6) 50%,
+      transparent 100%
+    );
+  }
+  100% {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.5) 0%,
+      transparent 40%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+  }
+}
