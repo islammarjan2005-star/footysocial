@@ -109,9 +109,13 @@ export function SecretAssignment() {
                 footballer={footballer}
                 showName={true}
                 size="small"
-                isEliminated={isTaken}
               />
-              {isTaken && <div className="taken-overlay">TAKEN</div>}
+              {isTaken && (
+                <div className="taken-overlay">
+                  <span className="taken-icon">🔒</span>
+                  <span className="taken-text">TAKEN</span>
+                </div>
+              )}
             </div>
           );
         })}
