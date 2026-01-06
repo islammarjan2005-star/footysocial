@@ -121,6 +121,50 @@
   z-index: 10;
 }
 
+/* Animated gloss sweep - continuous holographic effect */
+.card-gloss {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.card-gloss::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -150%;
+  width: 80%;
+  height: 200%;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.1) 40%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.1) 60%,
+    transparent 80%
+  );
+  animation: gloss-sweep 3s ease-in-out infinite;
+  transform: skewX(-20deg);
+}
+
+@keyframes gloss-sweep {
+  0% {
+    left: -150%;
+  }
+  50% {
+    left: 150%;
+  }
+  50.01%, 100% {
+    left: -150%;
+  }
+}
+
 /* Rating badge - FUT style */
 .card-rating {
   position: absolute;

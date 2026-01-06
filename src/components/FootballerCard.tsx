@@ -92,6 +92,7 @@ export function FootballerCard({
         <div className="card-frame">
           <div className="card-shine" />
           <div className="card-glow" />
+          <div className="card-gloss" />
 
           {/* Rating badge - FUT style */}
           {showRating && (

@@ -249,6 +249,40 @@
   pointer-events: none;
 }
 
+/* Animated gloss sweep for squad builder cards */
+.sb-fut-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -150%;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.15) 40%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.15) 60%,
+    transparent 80%
+  );
+  animation: sb-gloss-sweep 3.5s ease-in-out infinite;
+  transform: skewX(-20deg);
+  pointer-events: none;
+  z-index: 5;
+}
+
+@keyframes sb-gloss-sweep {
+  0% {
+    left: -150%;
+  }
+  45% {
+    left: 150%;
+  }
+  45.01%, 100% {
+    left: -150%;
+  }
+}
+
 .sb-card-top {
   display: flex;
   flex-direction: column;
