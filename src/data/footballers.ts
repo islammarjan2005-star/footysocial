@@ -10,16 +10,15 @@ export interface Footballer {
   imageUrl: string;
 }
 
-// Premier League official headshots
-const getPLImage = (plId: number) =>
-  `https://resources.premierleague.com/premierleague/photos/players/250x250/p${plId}.png`;
+// FIFA 25 face images from FIFARosters
+const getFIFAImage = (fifaId: number) =>
+  `https://www.fifarosters.com/assets/players/fifa25/faces/${fifaId}.png`;
 
-// DiceBear for non-PL players
-const getAvatar = (name: string) =>
-  `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(name)}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`;
+// FIFA 25 Player ID Reference:
+// PL: Haaland 239085, Salah 209331, De Bruyne 192985, Saka 230658, Bruno 212622, Van Dijk 203376, Rice 231747, Rashford 231677
 
 export const footballers: Footballer[] = [
-  // Premier League Stars - using official PL headshots
+  // Premier League Stars - using FIFA 25 face images
   {
     id: 1,
     name: "Erling Haaland",
@@ -29,7 +28,7 @@ export const footballers: Footballer[] = [
     nationality: "Norway",
     hairColor: "Blonde",
     facialHair: false,
-    imageUrl: getPLImage(65970)
+    imageUrl: getFIFAImage(239085)
   },
   {
     id: 2,
@@ -40,7 +39,7 @@ export const footballers: Footballer[] = [
     nationality: "Egypt",
     hairColor: "Black",
     facialHair: true,
-    imageUrl: getPLImage(25327)
+    imageUrl: getFIFAImage(209331)
   },
   {
     id: 3,
@@ -51,7 +50,7 @@ export const footballers: Footballer[] = [
     nationality: "Belgium",
     hairColor: "Red",
     facialHair: true,
-    imageUrl: getPLImage(4288)
+    imageUrl: getFIFAImage(192985)
   },
   {
     id: 4,
@@ -62,7 +61,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getPLImage(49481)
+    imageUrl: getFIFAImage(230658)
   },
   {
     id: 5,
@@ -73,7 +72,7 @@ export const footballers: Footballer[] = [
     nationality: "Portugal",
     hairColor: "Brown",
     facialHair: true,
-    imageUrl: getPLImage(141746)
+    imageUrl: getFIFAImage(212622)
   },
   {
     id: 6,
@@ -84,9 +83,9 @@ export const footballers: Footballer[] = [
     nationality: "Netherlands",
     hairColor: "Black",
     facialHair: true,
-    imageUrl: getPLImage(139208)
+    imageUrl: getFIFAImage(203376)
   },
-  // La Liga Stars - using avatars
+  // La Liga Stars - using FIFA 25 face images
   {
     id: 7,
     name: "Jude Bellingham",
@@ -96,7 +95,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getAvatar("Jude Bellingham")
+    imageUrl: getFIFAImage(251572)
   },
   {
     id: 8,
@@ -107,7 +106,7 @@ export const footballers: Footballer[] = [
     nationality: "Brazil",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getAvatar("Vinicius Jr")
+    imageUrl: getFIFAImage(238794)
   },
   {
     id: 9,
@@ -118,7 +117,7 @@ export const footballers: Footballer[] = [
     nationality: "Poland",
     hairColor: "Brown",
     facialHair: false,
-    imageUrl: getAvatar("Robert Lewandowski")
+    imageUrl: getFIFAImage(188545)
   },
   {
     id: 10,
@@ -129,7 +128,7 @@ export const footballers: Footballer[] = [
     nationality: "Spain",
     hairColor: "Brown",
     facialHair: false,
-    imageUrl: getAvatar("Pedri")
+    imageUrl: getFIFAImage(246009)
   },
   {
     id: 11,
@@ -140,7 +139,7 @@ export const footballers: Footballer[] = [
     nationality: "Spain",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getAvatar("Lamine Yamal")
+    imageUrl: getFIFAImage(264298)
   },
   {
     id: 12,
@@ -151,7 +150,7 @@ export const footballers: Footballer[] = [
     nationality: "Belgium",
     hairColor: "Brown",
     facialHair: true,
-    imageUrl: getAvatar("Thibaut Courtois")
+    imageUrl: getFIFAImage(192119)
   },
   // Serie A Stars
   {
@@ -163,7 +162,7 @@ export const footballers: Footballer[] = [
     nationality: "Argentina",
     hairColor: "Brown",
     facialHair: true,
-    imageUrl: getAvatar("Lautaro Martinez")
+    imageUrl: getFIFAImage(224458)
   },
   {
     id: 14,
@@ -174,7 +173,7 @@ export const footballers: Footballer[] = [
     nationality: "Portugal",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getAvatar("Rafael Leao")
+    imageUrl: getFIFAImage(243546)
   },
   {
     id: 15,
@@ -185,7 +184,7 @@ export const footballers: Footballer[] = [
     nationality: "Nigeria",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getAvatar("Victor Osimhen")
+    imageUrl: getFIFAImage(231443)
   },
   // Bundesliga Stars
   {
@@ -197,7 +196,7 @@ export const footballers: Footballer[] = [
     nationality: "Germany",
     hairColor: "Blonde",
     facialHair: false,
-    imageUrl: getAvatar("Florian Wirtz")
+    imageUrl: getFIFAImage(246655)
   },
   {
     id: 17,
@@ -208,7 +207,7 @@ export const footballers: Footballer[] = [
     nationality: "Germany",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getAvatar("Jamal Musiala")
+    imageUrl: getFIFAImage(241741)
   },
   {
     id: 18,
@@ -219,7 +218,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Brown",
     facialHair: true,
-    imageUrl: getAvatar("Harry Kane")
+    imageUrl: getFIFAImage(202126)
   },
   // La Liga / Ligue 1 Stars
   {
@@ -231,7 +230,7 @@ export const footballers: Footballer[] = [
     nationality: "France",
     hairColor: "Black",
     facialHair: false,
-    imageUrl: getAvatar("Kylian Mbappe")
+    imageUrl: getFIFAImage(231478)
   },
   {
     id: 20,
@@ -242,7 +241,7 @@ export const footballers: Footballer[] = [
     nationality: "France",
     hairColor: "Black",
     facialHair: true,
-    imageUrl: getAvatar("Ousmane Dembele")
+    imageUrl: getFIFAImage(221550)
   },
   // More Premier League
   {
@@ -254,7 +253,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Brown",
     facialHair: false,
-    imageUrl: getPLImage(50447)
+    imageUrl: getFIFAImage(231747)
   },
   {
     id: 22,
@@ -265,7 +264,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Black",
     facialHair: true,
-    imageUrl: getPLImage(13565)
+    imageUrl: getFIFAImage(231677)
   },
   {
     id: 23,
@@ -276,7 +275,7 @@ export const footballers: Footballer[] = [
     nationality: "Brazil",
     hairColor: "Brown",
     facialHair: true,
-    imageUrl: getPLImage(20559)
+    imageUrl: getFIFAImage(212831)
   },
   {
     id: 24,
@@ -287,7 +286,7 @@ export const footballers: Footballer[] = [
     nationality: "England",
     hairColor: "Blonde",
     facialHair: false,
-    imageUrl: getPLImage(14805)
+    imageUrl: getFIFAImage(237692)
   }
 ];
 
