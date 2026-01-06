@@ -5,7 +5,11 @@ import './GameOver.css';
 // Generate confetti particles
 const confettiColors = ['#ffd700', '#00ff88', '#00b4ff', '#ff4757', '#a855f7'];
 
-export function GameOver() {
+interface GameOverProps {
+  onBackToLanding?: () => void;
+}
+
+export function GameOver({ onBackToLanding }: GameOverProps) {
   const { state, dispatch } = useGame();
 
   const handlePlayAgain = () => {
@@ -58,10 +62,17 @@ export function GameOver() {
           </div>
         </div>
 
-        <button className="play-again-btn" onClick={handlePlayAgain}>
-          <span>Play Again</span>
-          <span className="btn-icon">↻</span>
-        </button>
+        <div className="game-over-buttons">
+          <button className="play-again-btn" onClick={handlePlayAgain}>
+            <span>Play Again</span>
+            <span className="btn-icon">↻</span>
+          </button>
+          {onBackToLanding && (
+            <button className="back-home-btn" onClick={onBackToLanding}>
+              <span>Back to Home</span>
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { useGame } from '../context/GameContext';
 import './SetupScreen.css';
 
-export function SetupScreen() {
+interface SetupScreenProps {
+  onBack?: () => void;
+}
+
+export function SetupScreen({ onBack }: SetupScreenProps) {
   const { dispatch } = useGame();
   const [playerCount, setPlayerCount] = useState(2);
 
@@ -12,6 +16,14 @@ export function SetupScreen() {
 
   return (
     <div className="setup-screen">
+      {/* Back button */}
+      {onBack && (
+        <button className="back-to-home" onClick={onBack}>
+          <span className="back-arrow">←</span>
+          <span>Home</span>
+        </button>
+      )}
+
       {/* Floating particles */}
       <div className="particles">
         {[...Array(20)].map((_, i) => (

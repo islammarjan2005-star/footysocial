@@ -158,6 +158,13 @@
   justify-content: center;
 }
 
+/* Buttons container */
+.game-over-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 /* Play again button */
 .play-again-btn {
   width: 100%;
@@ -203,6 +210,35 @@
 
 .play-again-btn:hover .btn-icon {
   animation: spin 0.5s ease;
+}
+
+/* Back home button */
+.back-home-btn {
+  width: 100%;
+  padding: 16px 30px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: white;
+  color: var(--text-secondary);
+  border: 3px solid var(--border-dark);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 0 #6b3000, 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.back-home-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #6b3000, 0 8px 20px rgba(0, 0, 0, 0.2);
+  color: var(--accent-red);
+}
+
+.back-home-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 0 #6b3000, 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 @media (min-width: 500px) {
