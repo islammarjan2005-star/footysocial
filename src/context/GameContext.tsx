@@ -8,40 +8,72 @@ const initialState: GameState = {
   currentPlayerIndex: 0,
   winner: null,
   allFootballers: footballers,
+  selectedFootballerIds: new Set(),
 };
-
-// Shuffle array using Fisher-Yates algorithm
-function shuffleArray<T>(array: T[]): T[] {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-}
 
 function gameReducer(state: GameState, action: GameAction): GameState {
   switch (action.type) {
     case 'START_GAME': {
-      // Shuffle footballers and assign one to each player
-      const shuffledFootballers = shuffleArray(footballers);
+      // Create players without assigning footballers - they will choose
       const players: Player[] = [];
 
       for (let i = 0; i < action.playerCount; i++) {
         players.push({
           id: i,
           name: `Player ${i + 1}`,
-          secretFootballer: shuffledFootballers[i],
+          secretFootballer: null, // Will be selected by player
           eliminatedIds: new Set(),
         });
       }
 
       return {
         ...state,
-        phase: 'assigning',
+        phase: 'selecting', // Go to selection phase
         players,
         currentPlayerIndex: 0,
         winner: null,
+        selectedFootballerIds: new Set(),
+      };
+    }
+
+    case 'SELECT_SECRET': {
+      const selectedFootballer = footballers.find(f => f.id === action.footballerId);
+
+      if (!selectedFootballer || state.selectedFootballerIds.has(action.footballerId)) {
+        return state; // Invalid selection
+      }
+
+      // Update player with their chosen footballer
+      const updatedPlayers = state.players.map((player, index) =>
+        index === state.currentPlayerIndex
+          ? { ...player, secretFootballer: selectedFootballer }
+          : player
+      );
+
+      // Track this footballer as selected
+      const newSelectedIds = new Set(state.selectedFootballerIds);
+      newSelectedIds.add(action.footballerId);
+
+      const nextPlayerIndex = state.currentPlayerIndex + 1;
+
+      // If all players have selected, move to passing screen before game
+      if (nextPlayerIndex >= state.players.length) {
+        return {
+          ...state,
+          players: updatedPlayers,
+          selectedFootballerIds: newSelectedIds,
+          currentPlayerIndex: 0,
+          phase: 'passing',
+        };
+      }
+
+      // More players need to select - show passing screen between selections
+      return {
+        ...state,
+        players: updatedPlayers,
+        selectedFootballerIds: newSelectedIds,
+        currentPlayerIndex: nextPlayerIndex,
+        phase: 'passing', // Pass device to next player
       };
     }
 
@@ -64,6 +96,18 @@ function gameReducer(state: GameState, action: GameAction): GameState {
     }
 
     case 'READY_TO_PLAY': {
+      // Check if current player still needs to select their footballer
+      const currentPlayer = state.players[state.currentPlayerIndex];
+
+      if (!currentPlayer.secretFootballer) {
+        // Player hasn't selected yet, go to selection
+        return {
+          ...state,
+          phase: 'selecting',
+        };
+      }
+
+      // All players have selected, go to playing
       return {
         ...state,
         phase: 'playing',
@@ -117,6 +161,11 @@ function gameReducer(state: GameState, action: GameAction): GameState {
       // For MVP with 2 players, opponent is the other player
       const opponentIndex = (state.currentPlayerIndex + 1) % state.players.length;
       const opponent = state.players[opponentIndex];
+
+      // Safety check - opponent must have selected a footballer
+      if (!opponent.secretFootballer) {
+        return state;
+      }
 
       const isCorrect = opponent.secretFootballer.id === action.footballerId;
 

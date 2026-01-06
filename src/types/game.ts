@@ -2,7 +2,8 @@ import type { Footballer } from '../data/footballers';
 
 export type GamePhase =
   | 'setup'           // Choosing number of players
-  | 'assigning'       // Showing each player their secret footballer
+  | 'selecting'       // Each player selects their secret footballer
+  | 'assigning'       // Showing each player their secret footballer (confirmation)
   | 'playing'         // Main game - asking questions, eliminating
   | 'passing'         // Screen shown while passing device
   | 'guessing'        // Player is making a guess
@@ -11,7 +12,7 @@ export type GamePhase =
 export interface Player {
   id: number;
   name: string;
-  secretFootballer: Footballer;
+  secretFootballer: Footballer | null; // null until player selects
   eliminatedIds: Set<number>; // IDs of footballers this player has eliminated
 }
 
@@ -21,10 +22,12 @@ export interface GameState {
   currentPlayerIndex: number;
   winner: Player | null;
   allFootballers: Footballer[];
+  selectedFootballerIds: Set<number>; // IDs already chosen by other players
 }
 
 export type GameAction =
   | { type: 'START_GAME'; playerCount: number }
+  | { type: 'SELECT_SECRET'; footballerId: number } // Player picks their secret
   | { type: 'CONFIRM_SECRET'; playerId: number }
   | { type: 'TOGGLE_ELIMINATE'; footballerId: number }
   | { type: 'END_TURN' }

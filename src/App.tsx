@@ -18,8 +18,10 @@ function GameContent({ onBackToLanding }: { onBackToLanding: () => void }) {
   switch (state.phase) {
     case 'setup':
       return <SetupScreen onBack={onBackToLanding} />;
-    case 'assigning':
+    case 'selecting':
       return <SecretAssignment />;
+    case 'assigning':
+      return <SecretAssignment />; // Legacy - keeping for compatibility
     case 'passing':
       return <PassingScreen />;
     case 'playing':

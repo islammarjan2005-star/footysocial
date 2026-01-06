@@ -88,11 +88,13 @@ export function GameOver({ onBackToLanding }: GameOverProps) {
                   {player.id === state.winner?.id && <span className="crown">👑</span>}
                 </span>
                 <div className="reveal-card">
-                  <FootballerCard
-                    footballer={player.secretFootballer}
-                    showName={true}
-                    size="medium"
-                  />
+                  {player.secretFootballer && (
+                    <FootballerCard
+                      footballer={player.secretFootballer}
+                      showName={true}
+                      size="medium"
+                    />
+                  )}
                 </div>
               </div>
             ))}
