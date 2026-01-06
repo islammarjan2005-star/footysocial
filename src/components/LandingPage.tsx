@@ -19,9 +19,10 @@ import './LandingPage.css';
 
 interface LandingPageProps {
   onPlayGuessWho: () => void;
+  onPlaySquadBuilder: () => void;
 }
 
-export function LandingPage({ onPlayGuessWho }: LandingPageProps) {
+export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder }: LandingPageProps) {
   const [animateHero, setAnimateHero] = useState(false);
 
   useEffect(() => {
@@ -108,7 +109,7 @@ export function LandingPage({ onPlayGuessWho }: LandingPageProps) {
           </div>
 
           {/* Squad Builder Game Card - FUT Style */}
-          <div className="game-card featured fut-style">
+          <div className="game-card featured fut-style" onClick={onPlaySquadBuilder}>
             <div className="game-card-badge">New</div>
             <div className="fut-preview">
               <div className="fut-pitch">
@@ -182,8 +183,9 @@ export function LandingPage({ onPlayGuessWho }: LandingPageProps) {
               <span className="feature"><ClockIcon size={16} /> 15-20 min</span>
               <span className="feature"><PhoneIcon size={16} /> Draft Mode</span>
             </div>
-            <button className="play-button disabled">
-              <span>Coming Soon</span>
+            <button className="play-button">
+              <span>Play Now</span>
+              <span className="play-arrow"><ArrowRightIcon size={20} /></span>
             </button>
           </div>
 
