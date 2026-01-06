@@ -323,7 +323,7 @@
 
 /* Eliminated state - flip down with style */
 .footballer-card.eliminated {
-  pointer-events: none;
+  /* Allow clicking to revive */
 }
 
 .footballer-card.eliminated .card-frame {
@@ -379,57 +379,40 @@
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
 }
 
-/* Revive hint on eliminated cards - floats below the card */
-.revive-hint {
+/* Revive button on eliminated cards - circular icon */
+.revive-btn {
   position: absolute;
-  bottom: -30px;
+  bottom: -35px;
   left: 50%;
   transform: translateX(-50%);
+  width: 32px;
+  height: 32px;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
   background: linear-gradient(135deg, #4caf50, #2e7d32);
-  padding: 5px 10px;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.5), 0 0 15px rgba(76, 175, 80, 0.4);
+  border-radius: 50%;
+  font-size: 18px;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.6), 0 0 15px rgba(76, 175, 80, 0.4);
   z-index: 100;
-  white-space: nowrap;
-  animation: revive-hint-float 2s ease-in-out infinite;
-  pointer-events: none;
+  animation: revive-btn-pulse 1.5s ease-in-out infinite;
+  cursor: pointer;
+  border: 2px solid #1b5e20;
 }
 
-.revive-icon {
-  font-size: 14px;
-  color: #fff;
-  animation: none;
+.revive-btn:hover {
+  transform: translateX(-50%) scale(1.15);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.8), 0 0 25px rgba(76, 175, 80, 0.6);
 }
 
-.revive-text {
-  font-size: 10px;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 600;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-  opacity: 0.9;
-}
-
-@keyframes revive-hint-float {
+@keyframes revive-btn-pulse {
   0%, 100% {
-    transform: translateX(-50%) translateY(0);
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4), 0 0 20px rgba(76, 175, 80, 0.3);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.5), 0 0 15px rgba(76, 175, 80, 0.3);
   }
   50% {
-    transform: translateX(-50%) translateY(-4px);
-    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.5), 0 0 30px rgba(76, 175, 80, 0.4);
+    box-shadow: 0 4px 20px rgba(76, 175, 80, 0.8), 0 0 25px rgba(76, 175, 80, 0.6);
   }
-}
-
-/* Hide revive hint on hover - show action state instead */
-.footballer-card.eliminated.clickable:hover .revive-hint {
-  opacity: 0;
-  transition: opacity 0.2s;
 }
 
 .footballer-card.eliminated.clickable:hover .eliminated-overlay {

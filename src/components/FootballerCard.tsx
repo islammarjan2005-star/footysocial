@@ -153,12 +153,9 @@ export function FootballerCard({
         </div>
         {showName && <div className="card-name">{footballer.name}</div>}
 
-        {/* Revive hint - positioned outside card frame to float below */}
+        {/* Revive button - just icon */}
         {isEliminated && onClick && (
-          <div className="revive-hint">
-            <span className="revive-icon">↩</span>
-            <span className="revive-text">Tap to revive</span>
-          </div>
+          <div className="revive-btn">↩</div>
         )}
         {isSecret && (
           <div className="secret-badge">
