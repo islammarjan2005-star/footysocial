@@ -33,7 +33,7 @@ export function LandingPage({ onPlayGuessWho }: LandingPageProps) {
             </h1>
           </div>
 
-          <p className="tagline">The Ultimate Party Game Platform for Football Fans</p>
+          <p className="tagline">The Ultimate Football Party Game Platform</p>
 
           <div className="hero-stats">
             <div className="stat">
