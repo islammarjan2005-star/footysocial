@@ -379,28 +379,34 @@
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
 }
 
-/* Revive hint on eliminated cards */
+/* Revive hint on eliminated cards - floats below the card */
 .revive-hint {
   position: absolute;
-  bottom: 8px;
-  left: 0;
-  right: 0;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 2px;
-  animation: revive-hint-pulse 2s ease-in-out infinite;
+  gap: 6px;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  padding: 5px 10px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.5), 0 0 15px rgba(76, 175, 80, 0.4);
+  z-index: 100;
+  white-space: nowrap;
+  animation: revive-hint-float 2s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .revive-icon {
-  font-size: 18px;
-  color: #4caf50;
-  text-shadow: 0 0 8px #4caf50, 0 0 12px rgba(76, 175, 80, 0.5);
-  animation: revive-icon-bounce 1.5s ease-in-out infinite;
+  font-size: 14px;
+  color: #fff;
+  animation: none;
 }
 
 .revive-text {
-  font-size: 8px;
+  font-size: 10px;
   color: #fff;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -409,14 +415,15 @@
   opacity: 0.9;
 }
 
-@keyframes revive-hint-pulse {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
-}
-
-@keyframes revive-icon-bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
+@keyframes revive-hint-float {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4), 0 0 20px rgba(76, 175, 80, 0.3);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-4px);
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.5), 0 0 30px rgba(76, 175, 80, 0.4);
+  }
 }
 
 /* Hide revive hint on hover - show action state instead */

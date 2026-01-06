@@ -5,16 +5,13 @@ import { FootballerCard } from './FootballerCard';
 import './SecretAssignment.css';
 
 export function SecretAssignment() {
-  const { state, dispatch, currentPlayer } = useGame();
+  const { dispatch, currentPlayer } = useGame();
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [showConfirm, setShowConfirm] = useState(false);
 
   if (!currentPlayer) return null;
 
   const handleSelect = (footballer: Footballer) => {
-    // Can't select already taken footballers
-    if (state.selectedFootballerIds.has(footballer.id)) return;
-
     setSelectedId(footballer.id);
     setShowConfirm(true);
   };
@@ -97,28 +94,19 @@ export function SecretAssignment() {
       </div>
 
       <div className="footballer-selection-grid">
-        {footballers.map((footballer) => {
-          const isTaken = state.selectedFootballerIds.has(footballer.id);
-          return (
-            <div
-              key={footballer.id}
-              className={`selection-card ${isTaken ? 'taken' : ''} ${selectedId === footballer.id ? 'selected' : ''}`}
-              onClick={() => !isTaken && handleSelect(footballer)}
-            >
-              <FootballerCard
-                footballer={footballer}
-                showName={true}
-                size="small"
-              />
-              {isTaken && (
-                <div className="taken-overlay">
-                  <span className="taken-icon">🔒</span>
-                  <span className="taken-text">TAKEN</span>
-                </div>
-              )}
-            </div>
-          );
-        })}
+        {footballers.map((footballer) => (
+          <div
+            key={footballer.id}
+            className={`selection-card ${selectedId === footballer.id ? 'selected' : ''}`}
+            onClick={() => handleSelect(footballer)}
+          >
+            <FootballerCard
+              footballer={footballer}
+              showName={true}
+              size="small"
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

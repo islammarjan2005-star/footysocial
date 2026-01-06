@@ -147,17 +147,19 @@ export function FootballerCard({
             {isEliminated && (
               <div className="eliminated-overlay">
                 <span className="eliminated-x"><CrossIcon size={32} color="#fff" /></span>
-                {onClick && (
-                  <div className="revive-hint">
-                    <span className="revive-icon">↩</span>
-                    <span className="revive-text">Tap to revive</span>
-                  </div>
-                )}
               </div>
             )}
           </div>
         </div>
         {showName && <div className="card-name">{footballer.name}</div>}
+
+        {/* Revive hint - positioned outside card frame to float below */}
+        {isEliminated && onClick && (
+          <div className="revive-hint">
+            <span className="revive-icon">↩</span>
+            <span className="revive-text">Tap to revive</span>
+          </div>
+        )}
         {isSecret && (
           <div className="secret-badge">
             <span>YOUR SECRET</span>
