@@ -196,6 +196,24 @@
   cursor: pointer;
 }
 
+/* Gloss effect for game cards */
+.game-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.3) 40%,
+    transparent 100%
+  );
+  pointer-events: none;
+  border-radius: 20px 20px 0 0;
+}
+
 .game-card:hover {
   transform: translateY(-8px);
   box-shadow:
@@ -380,6 +398,26 @@
   border: 3px solid var(--border-dark);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Gloss effect for feature cards */
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  border-radius: 17px 17px 0 0;
 }
 
 .feature-card:hover {
