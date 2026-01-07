@@ -4,6 +4,7 @@ import {
   getRandomWord,
   evaluateGuess,
   playerHints,
+  isValidGuess,
 } from '../data/footballWordleData';
 import './FootballWordle.css';
 
@@ -62,6 +63,15 @@ export function FootballWordle({ onBack }: FootballWordleProps) {
       }
 
       const guess = guesses[currentRow].letters.join('');
+
+      // Validate guess is a real footballer name
+      if (!isValidGuess(guess)) {
+        setShake(true);
+        setTimeout(() => setShake(false), 500);
+        showMessage('Not a valid footballer name');
+        return;
+      }
+
       const states = evaluateGuess(guess, targetWord);
 
       // Update guesses with states
