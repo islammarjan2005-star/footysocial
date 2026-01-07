@@ -12,9 +12,10 @@ import { HigherLower } from './components/HigherLower';
 import { BlindRanking } from './components/BlindRanking';
 import { FootballPoker } from './components/FootballPoker';
 import { FootballConnections } from './components/FootballConnections';
+import { FootballWordle } from './components/FootballWordle';
 import './App.css';
 
-type AppView = 'landing' | 'guess-who' | 'squad-builder' | 'higher-lower' | 'blind-ranking' | 'football-poker' | 'football-connections';
+type AppView = 'landing' | 'guess-who' | 'squad-builder' | 'higher-lower' | 'blind-ranking' | 'football-poker' | 'football-connections' | 'football-wordle';
 
 function GameContent({ onBackToLanding }: { onBackToLanding: () => void }) {
   const { state } = useGame();
@@ -66,6 +67,10 @@ function App() {
     setCurrentView('football-connections');
   };
 
+  const handlePlayFootballWordle = () => {
+    setCurrentView('football-wordle');
+  };
+
   const handleBackToLanding = () => {
     setCurrentView('landing');
   };
@@ -80,6 +85,7 @@ function App() {
           onPlayBlindRanking={handlePlayBlindRanking}
           onPlayFootballPoker={handlePlayFootballPoker}
           onPlayFootballConnections={handlePlayFootballConnections}
+          onPlayFootballWordle={handlePlayFootballWordle}
         />
       </div>
     );
@@ -121,6 +127,14 @@ function App() {
     return (
       <div className="app">
         <FootballConnections onBack={handleBackToLanding} />
+      </div>
+    );
+  }
+
+  if (currentView === 'football-wordle') {
+    return (
+      <div className="app">
+        <FootballWordle onBack={handleBackToLanding} />
       </div>
     );
   }

@@ -1318,3 +1318,68 @@
     padding: 6px 10px;
   }
 }
+
+/* Football Wordle Preview */
+.wordle-style .wordle-preview {
+  background: linear-gradient(180deg, #121213 0%, #1a1a1b 100%);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid #3a3a3c;
+}
+
+.wordle-grid-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+.wordle-row-preview {
+  display: flex;
+  gap: 4px;
+}
+
+.wordle-tile {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.wordle-tile.correct {
+  background: #538d4e;
+  color: white;
+}
+
+.wordle-tile.present {
+  background: #b59f3b;
+  color: white;
+}
+
+.wordle-tile.absent {
+  background: #3a3a3c;
+  color: white;
+}
+
+/* Responsive Wordle Preview */
+@media (max-width: 480px) {
+  .wordle-tile {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .wordle-grid-preview {
+    gap: 3px;
+  }
+
+  .wordle-row-preview {
+    gap: 3px;
+  }
+}

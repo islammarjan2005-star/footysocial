@@ -24,9 +24,10 @@ interface LandingPageProps {
   onPlayBlindRanking: () => void;
   onPlayFootballPoker: () => void;
   onPlayFootballConnections: () => void;
+  onPlayFootballWordle: () => void;
 }
 
-export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLower, onPlayBlindRanking, onPlayFootballPoker, onPlayFootballConnections }: LandingPageProps) {
+export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLower, onPlayBlindRanking, onPlayFootballPoker, onPlayFootballConnections, onPlayFootballWordle }: LandingPageProps) {
   const [animateHero, setAnimateHero] = useState(false);
 
   useEffect(() => {
@@ -384,6 +385,43 @@ export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLo
               <span className="feature"><UsersIcon size={16} /> 1 Player</span>
               <span className="feature"><ClockIcon size={16} /> 5-10 min</span>
               <span className="feature"><BrainIcon size={16} /> Puzzle</span>
+            </div>
+            <button className="play-button">
+              <span>Play Now</span>
+              <span className="play-arrow"><ArrowRightIcon size={20} /></span>
+            </button>
+          </div>
+
+          {/* Football Wordle Game Card */}
+          <div className="game-card featured wordle-style" onClick={onPlayFootballWordle}>
+            <div className="game-card-badge">New</div>
+            <div className="wordle-preview">
+              <div className="wordle-grid-preview">
+                <div className="wordle-row-preview">
+                  <span className="wordle-tile absent">S</span>
+                  <span className="wordle-tile present">A</span>
+                  <span className="wordle-tile absent">N</span>
+                  <span className="wordle-tile absent">C</span>
+                  <span className="wordle-tile correct">H</span>
+                </div>
+                <div className="wordle-row-preview">
+                  <span className="wordle-tile correct">S</span>
+                  <span className="wordle-tile correct">A</span>
+                  <span className="wordle-tile correct">L</span>
+                  <span className="wordle-tile correct">A</span>
+                  <span className="wordle-tile correct">H</span>
+                </div>
+              </div>
+            </div>
+            <h3 className="game-card-title">Footy Wordle</h3>
+            <p className="game-card-subtitle">Guess the Footballer</p>
+            <p className="game-card-description">
+              6 tries to guess the 5-letter footballer surname. Green = correct, Yellow = wrong spot!
+            </p>
+            <div className="game-card-features">
+              <span className="feature"><UsersIcon size={16} /> 1 Player</span>
+              <span className="feature"><ClockIcon size={16} /> 5 min</span>
+              <span className="feature"><StarIcon size={16} /> Daily</span>
             </div>
             <button className="play-button">
               <span>Play Now</span>
