@@ -46,6 +46,25 @@
   transform: translateX(-2px);
 }
 
+/* Stat Type Banner */
+.hl-stat-banner {
+  text-align: center;
+  padding: 8px 20px;
+  background: linear-gradient(90deg, transparent, rgba(255,215,0,0.15), transparent);
+  border-top: 1px solid rgba(255,215,0,0.2);
+  border-bottom: 1px solid rgba(255,215,0,0.2);
+}
+
+.hl-stat-type {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffd700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 0 0 20px rgba(255,215,0,0.5);
+}
+
 .hl-score-container {
   display: flex;
   gap: 20px;

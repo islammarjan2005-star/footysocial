@@ -207,9 +207,9 @@ export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLo
               </div>
             </div>
             <h3 className="game-card-title">Higher or Lower</h3>
-            <p className="game-card-subtitle">Instagram Challenge</p>
+            <p className="game-card-subtitle">Football Stats</p>
             <p className="game-card-description">
-              Guess which footballer has more Instagram followers! How high can you score?
+              Goals, trophies, followers, wages - guess which player has the higher stat!
             </p>
             <div className="game-card-features">
               <span className="feature"><UsersIcon size={16} /> 1 Player</span>

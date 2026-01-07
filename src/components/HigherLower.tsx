@@ -1,5 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
-import { higherLowerPlayers, getNextPlayer, type HigherLowerPlayer } from '../data/higherLowerData';
+import {
+  higherLowerPlayers,
+  getNextPlayer,
+  getRandomSharedStat,
+  getPlayerStat,
+  statLabels,
+  type HigherLowerPlayer,
+  type StatType,
+} from '../data/higherLowerData';
 import './HigherLower.css';
 
 interface HigherLowerProps {
@@ -11,6 +19,7 @@ type GameState = 'playing' | 'revealing' | 'correct' | 'wrong' | 'gameover';
 export function HigherLower({ onBack }: HigherLowerProps) {
   const [leftPlayer, setLeftPlayer] = useState<HigherLowerPlayer | null>(null);
   const [rightPlayer, setRightPlayer] = useState<HigherLowerPlayer | null>(null);
+  const [currentStatType, setCurrentStatType] = useState<StatType>('instagram');
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(() => {
     const saved = localStorage.getItem('higherLowerHighScore');
@@ -20,6 +29,7 @@ export function HigherLower({ onBack }: HigherLowerProps) {
   const [displayedCount, setDisplayedCount] = useState(0);
   const [isSliding, setIsSliding] = useState(false);
   const [usedIds, setUsedIds] = useState<string[]>([]);
+  const [lastGuess, setLastGuess] = useState<'higher' | 'lower'>('higher');
 
   // Initialize game
   useEffect(() => {
@@ -28,9 +38,14 @@ export function HigherLower({ onBack }: HigherLowerProps) {
 
   const startNewGame = () => {
     const shuffled = [...higherLowerPlayers].sort(() => Math.random() - 0.5);
-    setLeftPlayer(shuffled[0]);
-    setRightPlayer(shuffled[1]);
-    setUsedIds([shuffled[0].id, shuffled[1].id]);
+    const player1 = shuffled[0];
+    const player2 = shuffled[1];
+    const statType = getRandomSharedStat(player1, player2);
+
+    setLeftPlayer(player1);
+    setRightPlayer(player2);
+    setCurrentStatType(statType);
+    setUsedIds([player1.id, player2.id]);
     setScore(0);
     setGameState('playing');
     setDisplayedCount(0);
@@ -39,7 +54,10 @@ export function HigherLower({ onBack }: HigherLowerProps) {
   // Count-up animation
   useEffect(() => {
     if (gameState === 'revealing' && rightPlayer) {
-      const target = rightPlayer.followers;
+      const rightStat = getPlayerStat(rightPlayer, currentStatType);
+      if (!rightStat) return;
+
+      const target = rightStat.value;
       const duration = 1500;
       const steps = 60;
       const increment = target / steps;
@@ -61,13 +79,17 @@ export function HigherLower({ onBack }: HigherLowerProps) {
 
       return () => clearInterval(timer);
     }
-  }, [gameState, rightPlayer]);
+  }, [gameState, rightPlayer, currentStatType]);
 
   const checkResult = useCallback(() => {
     if (!leftPlayer || !rightPlayer) return;
 
-    const wasHigher = rightPlayer.followers >= leftPlayer.followers;
-    const guessedHigher = (window as any).__lastGuess === 'higher';
+    const leftStat = getPlayerStat(leftPlayer, currentStatType);
+    const rightStat = getPlayerStat(rightPlayer, currentStatType);
+    if (!leftStat || !rightStat) return;
+
+    const wasHigher = rightStat.value >= leftStat.value;
+    const guessedHigher = lastGuess === 'higher';
 
     if ((wasHigher && guessedHigher) || (!wasHigher && !guessedHigher)) {
       setGameState('correct');
@@ -80,11 +102,11 @@ export function HigherLower({ onBack }: HigherLowerProps) {
     } else {
       setGameState('wrong');
     }
-  }, [leftPlayer, rightPlayer, score, highScore]);
+  }, [leftPlayer, rightPlayer, currentStatType, score, highScore, lastGuess]);
 
   const handleGuess = (guess: 'higher' | 'lower') => {
     if (gameState !== 'playing') return;
-    (window as any).__lastGuess = guess;
+    setLastGuess(guess);
     setGameState('revealing');
   };
 
@@ -101,9 +123,11 @@ export function HigherLower({ onBack }: HigherLowerProps) {
       // Move right to left, get new right
       const newLeft = rightPlayer;
       const newRight = getNextPlayer([...usedIds]);
+      const newStatType = newLeft ? getRandomSharedStat(newLeft, newRight) : 'instagram';
 
       setLeftPlayer(newLeft);
       setRightPlayer(newRight);
+      setCurrentStatType(newStatType);
       setUsedIds(prev => [...prev, newRight.id]);
       setDisplayedCount(0);
       setGameState('playing');
@@ -114,6 +138,28 @@ export function HigherLower({ onBack }: HigherLowerProps) {
   if (!leftPlayer || !rightPlayer) {
     return <div className="higher-lower loading">Loading...</div>;
   }
+
+  const leftStat = getPlayerStat(leftPlayer, currentStatType);
+  const rightStat = getPlayerStat(rightPlayer, currentStatType);
+
+  if (!leftStat || !rightStat) {
+    return <div className="higher-lower loading">Loading...</div>;
+  }
+
+  // Format display value based on stat type
+  const formatDisplayValue = (value: number, statType: StatType): string => {
+    if (statType === 'weekly_wage') {
+      if (value >= 1000000) return `£${(value / 1000000).toFixed(1)}M`;
+      return `£${(value / 1000).toFixed(0)}K`;
+    }
+    if (statType === 'market_value') {
+      return `€${value}M`;
+    }
+    if (statType === 'instagram') {
+      return `${value}M`;
+    }
+    return value.toLocaleString();
+  };
 
   return (
     <div className="higher-lower">
@@ -134,6 +180,11 @@ export function HigherLower({ onBack }: HigherLowerProps) {
         </div>
       </div>
 
+      {/* Stat Type Banner */}
+      <div className="hl-stat-banner">
+        <span className="hl-stat-type">{statLabels[currentStatType]}</span>
+      </div>
+
       {/* Game Area */}
       <div className={`hl-game-area ${isSliding ? 'sliding' : ''}`}>
         {/* Left Card - Known */}
@@ -144,8 +195,8 @@ export function HigherLower({ onBack }: HigherLowerProps) {
             <h2 className="hl-player-name">{leftPlayer.name}</h2>
             <p className="hl-player-team">{leftPlayer.team}</p>
             <div className="hl-stat-label">has</div>
-            <div className="hl-stat-value">{leftPlayer.followers.toLocaleString()}</div>
-            <div className="hl-stat-unit">million {leftPlayer.searchTerm}</div>
+            <div className="hl-stat-value">{leftStat.display}</div>
+            <div className="hl-stat-unit">{leftStat.unit}</div>
           </div>
         </div>
 
@@ -175,15 +226,15 @@ export function HigherLower({ onBack }: HigherLowerProps) {
                     Lower
                   </button>
                 </div>
-                <div className="hl-stat-unit">{rightPlayer.searchTerm}</div>
+                <div className="hl-stat-unit">{rightStat.unit}</div>
               </>
             ) : (
               <>
                 <div className="hl-stat-label">has</div>
                 <div className={`hl-stat-value ${gameState === 'revealing' ? 'counting' : ''}`}>
-                  {displayedCount.toLocaleString()}
+                  {formatDisplayValue(displayedCount, currentStatType)}
                 </div>
-                <div className="hl-stat-unit">million {rightPlayer.searchTerm}</div>
+                <div className="hl-stat-unit">{rightStat.unit}</div>
 
                 {(gameState === 'correct' || gameState === 'wrong') && (
                   <div className={`hl-result ${gameState}`}>
