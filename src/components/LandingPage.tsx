@@ -23,9 +23,10 @@ interface LandingPageProps {
   onPlayHigherLower: () => void;
   onPlayBlindRanking: () => void;
   onPlayFootballPoker: () => void;
+  onPlayFootballConnections: () => void;
 }
 
-export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLower, onPlayBlindRanking, onPlayFootballPoker }: LandingPageProps) {
+export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLower, onPlayBlindRanking, onPlayFootballPoker, onPlayFootballConnections }: LandingPageProps) {
   const [animateHero, setAnimateHero] = useState(false);
 
   useEffect(() => {
@@ -333,6 +334,56 @@ export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLo
               <span className="feature"><UsersIcon size={16} /> 1 Player</span>
               <span className="feature"><ClockIcon size={16} /> 5-10 min</span>
               <span className="feature"><TrophyIcon size={16} /> Texas Hold'em</span>
+            </div>
+            <button className="play-button">
+              <span>Play Now</span>
+              <span className="play-arrow"><ArrowRightIcon size={20} /></span>
+            </button>
+          </div>
+
+          {/* Football Connections Game Card */}
+          <div className="game-card featured connections-style" onClick={onPlayFootballConnections}>
+            <div className="game-card-badge">New</div>
+            <div className="connections-preview">
+              <div className="connections-grid-preview">
+                <div className="connections-tile-preview">
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/158023.png" alt="Messi" />
+                </div>
+                <div className="connections-tile-preview">
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/20801.png" alt="Ronaldo" />
+                </div>
+                <div className="connections-tile-preview selected">
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/209331.png" alt="Salah" />
+                </div>
+                <div className="connections-tile-preview selected">
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/239085.png" alt="Haaland" />
+                </div>
+                <div className="connections-tile-preview selected">
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/202126.png" alt="Kane" />
+                </div>
+                <div className="connections-tile-preview">
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/231747.png" alt="Mbappe" />
+                </div>
+                <div className="connections-tile-preview">
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/192985.png" alt="KDB" />
+                </div>
+                <div className="connections-tile-preview selected">
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/200104.png" alt="Son" />
+                </div>
+              </div>
+              <div className="connections-solved-preview">
+                <div className="connections-category yellow">Premier League Golden Boot</div>
+              </div>
+            </div>
+            <h3 className="game-card-title">Football Connections</h3>
+            <p className="game-card-subtitle">Find the Link</p>
+            <p className="game-card-description">
+              Group 16 footballers into 4 secret categories. Can you find what connects them?
+            </p>
+            <div className="game-card-features">
+              <span className="feature"><UsersIcon size={16} /> 1 Player</span>
+              <span className="feature"><ClockIcon size={16} /> 5-10 min</span>
+              <span className="feature"><BrainIcon size={16} /> Puzzle</span>
             </div>
             <button className="play-button">
               <span>Play Now</span>

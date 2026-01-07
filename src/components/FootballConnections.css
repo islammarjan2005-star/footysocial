@@ -1,0 +1,366 @@
+/* Football Connections - NYT Connections Style */
+.football-connections {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #121212 0%, #1a1a2e 100%);
+  color: white;
+  padding-bottom: 40px;
+}
+
+/* Header */
+.fc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.fc-back-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.fc-back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.fc-header h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #f9df6d, #ba81c5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.fc-mistakes {
+  display: flex;
+  gap: 6px;
+}
+
+.fc-mistake-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #4a4a4a;
+  border: 2px solid #666;
+  transition: all 0.3s;
+}
+
+.fc-mistake-dot.used {
+  background: #e63946;
+  border-color: #ff6b6b;
+  box-shadow: 0 0 8px rgba(230, 57, 70, 0.5);
+}
+
+/* Instructions */
+.fc-instructions {
+  text-align: center;
+  padding: 16px 20px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Solved Categories */
+.fc-solved {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fc-solved-category {
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+  animation: solveReveal 0.5s ease-out;
+}
+
+@keyframes solveReveal {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.fc-solved-name {
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.fc-solved-players {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+/* Game Grid */
+.fc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 12px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.fc-grid.shake {
+  animation: shakeGrid 0.5s ease-in-out;
+}
+
+@keyframes shakeGrid {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+.fc-tile {
+  aspect-ratio: 1;
+  background: #2a2a3e;
+  border: 2px solid #3a3a5e;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  gap: 4px;
+}
+
+.fc-tile:hover {
+  background: #3a3a5e;
+  transform: scale(1.02);
+}
+
+.fc-tile.selected {
+  background: #4a4a6e;
+  border-color: #f9df6d;
+  box-shadow: 0 0 12px rgba(249, 223, 109, 0.3);
+  transform: scale(0.98);
+}
+
+.fc-tile-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #333;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.fc-tile-name {
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  color: white;
+  line-height: 1.2;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Feedback */
+.fc-feedback {
+  text-align: center;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  animation: feedbackPop 0.3s ease-out;
+}
+
+@keyframes feedbackPop {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.fc-feedback-correct {
+  color: #a0c35a;
+}
+
+.fc-feedback-close {
+  color: #f9df6d;
+}
+
+.fc-feedback-wrong {
+  color: #e63946;
+}
+
+/* Action Buttons */
+.fc-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+  flex-wrap: wrap;
+}
+
+.fc-btn {
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid transparent;
+}
+
+.fc-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.fc-btn-shuffle {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.fc-btn-shuffle:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.fc-btn-deselect {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.fc-btn-deselect:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.fc-btn-submit {
+  background: linear-gradient(135deg, #f9df6d, #f4a100);
+  color: #1a1a1a;
+  border: none;
+}
+
+.fc-btn-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(249, 223, 109, 0.4);
+}
+
+.fc-btn-new {
+  background: linear-gradient(135deg, #a0c35a, #7cb342);
+  color: #1a1a1a;
+  border: none;
+  padding: 16px 40px;
+  font-size: 16px;
+  margin-top: 16px;
+}
+
+.fc-btn-new:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(160, 195, 90, 0.4);
+}
+
+/* Game Over */
+.fc-game-over {
+  text-align: center;
+  padding: 20px;
+}
+
+.fc-result {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  animation: resultBounce 0.5s ease-out;
+}
+
+@keyframes resultBounce {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.fc-result.win {
+  color: #a0c35a;
+  text-shadow: 0 0 20px rgba(160, 195, 90, 0.5);
+}
+
+.fc-result.lose {
+  color: #e63946;
+  text-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
+}
+
+.fc-reveal {
+  margin-bottom: 20px;
+}
+
+.fc-reveal p {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 12px;
+}
+
+.fc-revealed {
+  opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .fc-grid {
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .fc-tile {
+    padding: 6px;
+    border-radius: 8px;
+  }
+
+  .fc-tile-img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .fc-tile-name {
+    font-size: 9px;
+  }
+
+  .fc-header h1 {
+    font-size: 16px;
+  }
+
+  .fc-actions {
+    gap: 6px;
+  }
+
+  .fc-btn {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+
+  .fc-solved-category {
+    padding: 12px;
+  }
+
+  .fc-solved-name {
+    font-size: 12px;
+  }
+
+  .fc-solved-players {
+    font-size: 11px;
+  }
+}
