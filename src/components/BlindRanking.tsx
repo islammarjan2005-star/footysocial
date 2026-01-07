@@ -17,7 +17,7 @@ interface RankedPlayer {
 
 type GameState = 'intro' | 'ranking' | 'results';
 
-const PLAYER_COUNT = 10;
+const PLAYER_COUNT = 10; // 10 random players per game
 
 const tierColors: Record<Tier, string> = {
   S: '#ff5555',
