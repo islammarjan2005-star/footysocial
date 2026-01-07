@@ -1,127 +1,97 @@
-import { useState, useCallback } from 'react';
-import type { BlindRankingPlayer, RankingCategory } from '../data/blindRankingData';
-import {
-  getRandomPlayersForRanking,
-  getRandomCategory,
-  calculateScore,
-  categoryLabels,
-  categoryDescriptions,
-  getValidCategories,
-} from '../data/blindRankingData';
+import { useState, useCallback, useMemo } from 'react';
+import { blindRankingPlayers } from '../data/blindRankingData';
 import './BlindRanking.css';
 
 interface BlindRankingProps {
   onBack: () => void;
 }
 
-type GameState = 'category-select' | 'ranking' | 'results';
+type Tier = 'S' | 'A' | 'B' | 'C' | 'D';
 
-interface ResultDetail {
-  player: BlindRankingPlayer;
-  guessedRank: number;
-  actualRank: number;
-  points: number;
+interface RankedPlayer {
+  id: string;
+  name: string;
+  imageUrl: string;
+  tier: Tier;
 }
 
-export function BlindRanking({ onBack }: BlindRankingProps) {
-  const [gameState, setGameState] = useState<GameState>('category-select');
-  const [category, setCategory] = useState<RankingCategory | null>(null);
-  const [availablePlayers, setAvailablePlayers] = useState<BlindRankingPlayer[]>([]);
-  const [rankedPlayers, setRankedPlayers] = useState<(BlindRankingPlayer | null)[]>(
-    Array(10).fill(null)
-  );
-  const [selectedPlayer, setSelectedPlayer] = useState<BlindRankingPlayer | null>(null);
-  const [results, setResults] = useState<{
-    score: number;
-    maxScore: number;
-    correctPositions: number;
-    details: ResultDetail[];
-  } | null>(null);
-  const [highScore, setHighScore] = useState<number>(() => {
-    const saved = localStorage.getItem('blindRankingHighScore');
-    return saved ? parseInt(saved, 10) : 0;
-  });
+type GameState = 'intro' | 'ranking' | 'results';
 
-  const startGame = useCallback((selectedCategory: RankingCategory) => {
-    const players = getRandomPlayersForRanking(10);
-    setCategory(selectedCategory);
-    setAvailablePlayers(players);
-    setRankedPlayers(Array(10).fill(null));
-    setSelectedPlayer(null);
-    setResults(null);
+const PLAYER_COUNT = 10;
+
+const tierColors: Record<Tier, string> = {
+  S: '#ff5555',
+  A: '#ff9500',
+  B: '#ffd000',
+  C: '#4ecdc4',
+  D: '#a0a0a0',
+};
+
+const tierDescriptions: Record<Tier, string> = {
+  S: 'Elite - Best of the best',
+  A: 'Great - Top tier player',
+  B: 'Good - Solid performer',
+  C: 'Average - Decent player',
+  D: 'Below Average',
+};
+
+export function BlindRanking({ onBack }: BlindRankingProps) {
+  const [gameState, setGameState] = useState<GameState>('intro');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [rankedPlayers, setRankedPlayers] = useState<RankedPlayer[]>([]);
+
+  // Shuffle players once when starting a new game
+  const shuffledPlayers = useMemo(() => {
+    const shuffled = [...blindRankingPlayers].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, PLAYER_COUNT);
+  }, [gameState === 'intro']); // Re-shuffle when returning to intro
+
+  const currentPlayer = shuffledPlayers[currentIndex];
+  const isLastPlayer = currentIndex === PLAYER_COUNT - 1;
+
+  const startGame = useCallback(() => {
     setGameState('ranking');
+    setCurrentIndex(0);
+    setRankedPlayers([]);
   }, []);
 
-  const startRandomGame = useCallback(() => {
-    const randomCat = getRandomCategory();
-    startGame(randomCat);
-  }, [startGame]);
+  const handleTierSelect = useCallback((tier: Tier) => {
+    const newRankedPlayer: RankedPlayer = {
+      id: currentPlayer.id,
+      name: currentPlayer.name,
+      imageUrl: currentPlayer.imageUrl,
+      tier,
+    };
 
-  const handlePlayerSelect = useCallback((player: BlindRankingPlayer) => {
-    if (selectedPlayer?.id === player.id) {
-      setSelectedPlayer(null);
+    setRankedPlayers(prev => [...prev, newRankedPlayer]);
+
+    if (isLastPlayer) {
+      setGameState('results');
     } else {
-      setSelectedPlayer(player);
+      setCurrentIndex(prev => prev + 1);
     }
-  }, [selectedPlayer]);
-
-  const handleSlotClick = useCallback((slotIndex: number) => {
-    if (!selectedPlayer) {
-      // If clicking a filled slot without selection, select that player to move
-      const playerInSlot = rankedPlayers[slotIndex];
-      if (playerInSlot) {
-        setSelectedPlayer(playerInSlot);
-        // Remove from slot
-        const newRanked = [...rankedPlayers];
-        newRanked[slotIndex] = null;
-        setRankedPlayers(newRanked);
-        setAvailablePlayers(prev => [...prev, playerInSlot]);
-      }
-      return;
-    }
-
-    // Place selected player in slot
-    const currentOccupant = rankedPlayers[slotIndex];
-    const newRanked = [...rankedPlayers];
-    newRanked[slotIndex] = selectedPlayer;
-    setRankedPlayers(newRanked);
-
-    // Remove selected player from available
-    setAvailablePlayers(prev => prev.filter(p => p.id !== selectedPlayer.id));
-
-    // If there was a player in this slot, put them back in available
-    if (currentOccupant) {
-      setAvailablePlayers(prev => [...prev, currentOccupant]);
-    }
-
-    setSelectedPlayer(null);
-  }, [selectedPlayer, rankedPlayers]);
-
-  const handleSubmit = useCallback(() => {
-    if (!category || rankedPlayers.some(p => p === null)) return;
-
-    const finalRanking = rankedPlayers.filter((p): p is BlindRankingPlayer => p !== null);
-    const result = calculateScore(finalRanking, category);
-    setResults(result);
-
-    if (result.score > highScore) {
-      setHighScore(result.score);
-      localStorage.setItem('blindRankingHighScore', result.score.toString());
-    }
-
-    setGameState('results');
-  }, [category, rankedPlayers, highScore]);
+  }, [currentPlayer, isLastPlayer]);
 
   const playAgain = useCallback(() => {
-    setGameState('category-select');
-    setCategory(null);
-    setAvailablePlayers([]);
-    setRankedPlayers(Array(10).fill(null));
-    setResults(null);
+    setGameState('intro');
+    setCurrentIndex(0);
+    setRankedPlayers([]);
   }, []);
 
-  const filledSlots = rankedPlayers.filter(p => p !== null).length;
-  const canSubmit = filledSlots === 10;
+  // Group players by tier for results
+  const tierLists = useMemo(() => {
+    const tiers: Record<Tier, RankedPlayer[]> = {
+      S: [],
+      A: [],
+      B: [],
+      C: [],
+      D: [],
+    };
+    rankedPlayers.forEach(player => {
+      tiers[player.tier].push(player);
+    });
+    return tiers;
+  }, [rankedPlayers]);
 
   return (
     <div className="blind-ranking">
@@ -130,153 +100,112 @@ export function BlindRanking({ onBack }: BlindRankingProps) {
           ← Back
         </button>
         <h1>Blind Ranking</h1>
-        <div className="br-high-score">Best: {highScore}</div>
+        {gameState === 'ranking' && (
+          <div className="br-progress-counter">{currentIndex + 1}/{PLAYER_COUNT}</div>
+        )}
+        {gameState !== 'ranking' && <div className="br-spacer" />}
       </header>
 
-      {gameState === 'category-select' && (
-        <div className="br-category-select">
-          <h2>Choose a Category</h2>
-          <p className="br-instructions">
-            Rank 10 random players from highest to lowest without seeing their stats!
-          </p>
-
-          <div className="br-category-grid">
-            {getValidCategories().map(cat => (
-              <button
-                key={cat}
-                className="br-category-btn"
-                onClick={() => startGame(cat)}
-              >
-                <span className="br-cat-label">{categoryLabels[cat]}</span>
-                <span className="br-cat-desc">{categoryDescriptions[cat]}</span>
-              </button>
-            ))}
-          </div>
-
-          <button className="br-random-btn" onClick={startRandomGame}>
-            🎲 Random Category
-          </button>
-        </div>
-      )}
-
-      {gameState === 'ranking' && category && (
-        <div className="br-game">
-          <div className="br-category-banner">
-            <span>Rank by:</span>
-            <strong>{categoryLabels[category]}</strong>
-            <span className="br-direction">Highest → Lowest</span>
-          </div>
-
-          <div className="br-slots">
-            {rankedPlayers.map((player, index) => (
-              <div
-                key={index}
-                className={`br-slot ${player ? 'filled' : 'empty'} ${
-                  !player && selectedPlayer ? 'ready' : ''
-                }`}
-                onClick={() => handleSlotClick(index)}
-              >
-                <span className="br-slot-rank">#{index + 1}</span>
-                {player ? (
-                  <div className="br-slot-player">
-                    <img src={player.imageUrl} alt={player.name} />
-                    <span className="br-slot-name">{player.name}</span>
-                  </div>
-                ) : (
-                  <span className="br-slot-empty">
-                    {selectedPlayer ? 'Tap to place' : 'Empty'}
-                  </span>
-                )}
+      {gameState === 'intro' && (
+        <div className="br-intro">
+          <div className="br-intro-card">
+            <h2>How It Works</h2>
+            <div className="br-rules">
+              <div className="br-rule">
+                <span className="br-rule-num">1</span>
+                <p>Players appear <strong>one at a time</strong></p>
               </div>
-            ))}
-          </div>
-
-          <div className="br-available">
-            <h3>Available Players ({availablePlayers.length})</h3>
-            <div className="br-player-pool">
-              {availablePlayers.map(player => (
-                <div
-                  key={player.id}
-                  className={`br-player-card ${
-                    selectedPlayer?.id === player.id ? 'selected' : ''
-                  }`}
-                  onClick={() => handlePlayerSelect(player)}
-                >
-                  <img src={player.imageUrl} alt={player.name} />
-                  <span>{player.name}</span>
+              <div className="br-rule">
+                <span className="br-rule-num">2</span>
+                <p>Assign each player a <strong>tier (S to D)</strong></p>
+              </div>
+              <div className="br-rule">
+                <span className="br-rule-num">3</span>
+                <p><strong>No going back!</strong> Trust your gut</p>
+              </div>
+              <div className="br-rule">
+                <span className="br-rule-num">4</span>
+                <p>See your <strong>final tier list</strong> at the end</p>
+              </div>
+            </div>
+            <div className="br-tier-preview">
+              {(['S', 'A', 'B', 'C', 'D'] as Tier[]).map(tier => (
+                <div key={tier} className="br-tier-badge" style={{ background: tierColors[tier] }}>
+                  {tier}
                 </div>
               ))}
             </div>
-          </div>
-
-          <div className="br-actions">
-            <span className="br-progress">{filledSlots}/10 ranked</span>
-            <button
-              className="br-submit-btn"
-              disabled={!canSubmit}
-              onClick={handleSubmit}
-            >
-              Submit Ranking
+            <button className="br-start-btn" onClick={startGame}>
+              Start Ranking
             </button>
           </div>
         </div>
       )}
 
-      {gameState === 'results' && results && category && (
-        <div className="br-results">
-          <div className="br-score-card">
-            <h2>Results</h2>
-            <div className="br-final-score">
-              <span className="br-score-value">{results.score}</span>
-              <span className="br-score-max">/ {results.maxScore}</span>
+      {gameState === 'ranking' && currentPlayer && (
+        <div className="br-ranking-screen">
+          <div className="br-player-reveal">
+            <div className="br-player-image-container">
+              <img
+                src={currentPlayer.imageUrl}
+                alt={currentPlayer.name}
+                className="br-player-image"
+              />
             </div>
-            <div className="br-score-details">
-              <span>{results.correctPositions} exact positions</span>
-              <span>{Math.round((results.score / results.maxScore) * 100)}% accuracy</span>
-            </div>
-            {results.score > highScore - results.score && results.score >= highScore && (
-              <div className="br-new-high">🏆 New High Score!</div>
-            )}
+            <h2 className="br-player-name">{currentPlayer.name}</h2>
+            <p className="br-prompt">What tier is this player?</p>
           </div>
 
-          <div className="br-results-list">
-            <div className="br-results-header">
-              <span>Player</span>
-              <span>Your Rank</span>
-              <span>Actual ({categoryLabels[category]})</span>
-              <span>Points</span>
-            </div>
-            {results.details
-              .sort((a, b) => a.actualRank - b.actualRank)
-              .map((detail) => (
+          <div className="br-tier-buttons">
+            {(['S', 'A', 'B', 'C', 'D'] as Tier[]).map(tier => (
+              <button
+                key={tier}
+                className="br-tier-btn"
+                style={{
+                  background: tierColors[tier],
+                  boxShadow: `0 4px 20px ${tierColors[tier]}66`
+                }}
+                onClick={() => handleTierSelect(tier)}
+              >
+                <span className="br-tier-letter">{tier}</span>
+                <span className="br-tier-desc">{tierDescriptions[tier]}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="br-remaining">
+            {PLAYER_COUNT - currentIndex - 1} players remaining
+          </div>
+        </div>
+      )}
+
+      {gameState === 'results' && (
+        <div className="br-results">
+          <h2 className="br-results-title">Your Tier List</h2>
+
+          <div className="br-tier-list">
+            {(['S', 'A', 'B', 'C', 'D'] as Tier[]).map(tier => (
+              <div key={tier} className="br-tier-row">
                 <div
-                  key={detail.player.id}
-                  className={`br-result-row ${
-                    detail.guessedRank === detail.actualRank
-                      ? 'perfect'
-                      : Math.abs(detail.guessedRank - detail.actualRank) <= 1
-                      ? 'close'
-                      : ''
-                  }`}
+                  className="br-tier-label"
+                  style={{ background: tierColors[tier] }}
                 >
-                  <div className="br-result-player">
-                    <img src={detail.player.imageUrl} alt={detail.player.name} />
-                    <span>{detail.player.name}</span>
-                  </div>
-                  <span className="br-result-guess">#{detail.guessedRank}</span>
-                  <div className="br-result-actual">
-                    <span className="br-actual-rank">#{detail.actualRank}</span>
-                    <span className="br-actual-value">
-                      {category === 'market_value' && '€'}
-                      {detail.player.stats[category].toLocaleString()}
-                      {category === 'instagram' && 'M'}
-                    </span>
-                  </div>
-                  <span className={`br-result-points ${detail.points === 10 ? 'max' : ''}`}>
-                    +{detail.points}
-                  </span>
+                  {tier}
                 </div>
-              ))}
+                <div className="br-tier-players">
+                  {tierLists[tier].length === 0 ? (
+                    <span className="br-empty-tier">Empty</span>
+                  ) : (
+                    tierLists[tier].map(player => (
+                      <div key={player.id} className="br-tier-player">
+                        <img src={player.imageUrl} alt={player.name} />
+                        <span>{player.name}</span>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
 
           <div className="br-results-actions">
