@@ -22,9 +22,10 @@ interface LandingPageProps {
   onPlaySquadBuilder: () => void;
   onPlayHigherLower: () => void;
   onPlayBlindRanking: () => void;
+  onPlayFootballPoker: () => void;
 }
 
-export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLower, onPlayBlindRanking }: LandingPageProps) {
+export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLower, onPlayBlindRanking, onPlayFootballPoker }: LandingPageProps) {
   const [animateHero, setAnimateHero] = useState(false);
 
   useEffect(() => {
@@ -256,6 +257,46 @@ export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLo
               <span className="feature"><UsersIcon size={16} /> 1 Player</span>
               <span className="feature"><ClockIcon size={16} /> 5-10 min</span>
               <span className="feature"><TrophyIcon size={16} /> High Scores</span>
+            </div>
+            <button className="play-button">
+              <span>Play Now</span>
+              <span className="play-arrow"><ArrowRightIcon size={20} /></span>
+            </button>
+          </div>
+
+          {/* Football Poker Game Card */}
+          <div className="game-card featured football-poker-style" onClick={onPlayFootballPoker}>
+            <div className="game-card-badge">New</div>
+            <div className="poker-preview">
+              <div className="poker-preview-cards">
+                <div className="poker-card" style={{ background: '#e90052' }}>
+                  <span className="poker-value">9♥</span>
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/239085.png" alt="Haaland" />
+                </div>
+                <div className="poker-card" style={{ background: '#ee8707' }}>
+                  <span className="poker-value">7♦</span>
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/238794.png" alt="Vini" />
+                </div>
+                <div className="poker-card" style={{ background: '#008fd7' }}>
+                  <span className="poker-value">10♣</span>
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/211110.png" alt="Dybala" />
+                </div>
+                <div className="poker-card" style={{ background: '#d20515' }}>
+                  <span className="poker-value">9♠</span>
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/202126.png" alt="Kane" />
+                </div>
+              </div>
+              <div className="poker-preview-hand">PAIR OF 9s</div>
+            </div>
+            <h3 className="game-card-title">Football Poker</h3>
+            <p className="game-card-subtitle">Suits = Leagues</p>
+            <p className="game-card-description">
+              Classic poker where suits are leagues and numbers are shirt numbers. Real footballers on every card!
+            </p>
+            <div className="game-card-features">
+              <span className="feature"><UsersIcon size={16} /> 1 Player</span>
+              <span className="feature"><ClockIcon size={16} /> 5-10 min</span>
+              <span className="feature"><TrophyIcon size={16} /> 5-Card Draw</span>
             </div>
             <button className="play-button">
               <span>Play Now</span>

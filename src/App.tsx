@@ -10,9 +10,10 @@ import { LandingPage } from './components/LandingPage';
 import { SquadBuilder } from './components/SquadBuilder';
 import { HigherLower } from './components/HigherLower';
 import { BlindRanking } from './components/BlindRanking';
+import { FootballPoker } from './components/FootballPoker';
 import './App.css';
 
-type AppView = 'landing' | 'guess-who' | 'squad-builder' | 'higher-lower' | 'blind-ranking';
+type AppView = 'landing' | 'guess-who' | 'squad-builder' | 'higher-lower' | 'blind-ranking' | 'football-poker';
 
 function GameContent({ onBackToLanding }: { onBackToLanding: () => void }) {
   const { state } = useGame();
@@ -56,6 +57,10 @@ function App() {
     setCurrentView('blind-ranking');
   };
 
+  const handlePlayFootballPoker = () => {
+    setCurrentView('football-poker');
+  };
+
   const handleBackToLanding = () => {
     setCurrentView('landing');
   };
@@ -68,6 +73,7 @@ function App() {
           onPlaySquadBuilder={handlePlaySquadBuilder}
           onPlayHigherLower={handlePlayHigherLower}
           onPlayBlindRanking={handlePlayBlindRanking}
+          onPlayFootballPoker={handlePlayFootballPoker}
         />
       </div>
     );
@@ -93,6 +99,14 @@ function App() {
     return (
       <div className="app">
         <BlindRanking onBack={handleBackToLanding} />
+      </div>
+    );
+  }
+
+  if (currentView === 'football-poker') {
+    return (
+      <div className="app">
+        <FootballPoker onBack={handleBackToLanding} />
       </div>
     );
   }

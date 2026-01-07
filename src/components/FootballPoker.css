@@ -1,0 +1,382 @@
+.football-poker {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0d1b0d 0%, #1a3a1a 50%, #0d2818 100%);
+  color: white;
+}
+
+/* Header */
+.fp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: rgba(0, 0, 0, 0.4);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.fp-back-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.fp-back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.fp-header h1 {
+  margin: 0;
+  font-size: 20px;
+  background: linear-gradient(90deg, #ffd700, #ffaa00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.fp-chips {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+/* Legend */
+.fp-legend {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  flex-wrap: wrap;
+}
+
+.fp-legend-item {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fp-suit {
+  font-size: 16px;
+}
+
+/* Betting Phase */
+.fp-betting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 120px);
+  padding: 20px;
+}
+
+.fp-ante-info {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.fp-ante-info p {
+  margin: 8px 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.fp-deal-btn {
+  background: linear-gradient(135deg, #ffd700, #ffaa00);
+  border: none;
+  color: #1a1a1a;
+  padding: 20px 50px;
+  border-radius: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.fp-deal-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
+}
+
+.fp-broke {
+  text-align: center;
+}
+
+.fp-broke p {
+  color: #ff5555;
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.fp-reset-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 12px 30px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* Game Area */
+.fp-game-area {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fp-hand-section {
+  text-align: center;
+}
+
+.fp-hand-section h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.fp-hand-desc {
+  margin: 8px 0 0 0;
+  font-size: 12px;
+  color: #ffd700;
+  font-style: italic;
+}
+
+.fp-hand {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Cards */
+.fp-card {
+  width: 65px;
+  height: 95px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.fp-card:hover {
+  transform: translateY(-4px);
+}
+
+.fp-card-selected {
+  transform: translateY(-12px);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+  border: 2px solid #ffd700;
+}
+
+.fp-card-back {
+  background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+  cursor: default;
+}
+
+.fp-card-back:hover {
+  transform: none;
+}
+
+.fp-card-back-design {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 32px;
+  opacity: 0.5;
+}
+
+.fp-card-face {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.fp-card-corner {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.fp-card-corner-top {
+  top: 4px;
+  left: 4px;
+}
+
+.fp-card-corner-bottom {
+  bottom: 4px;
+  right: 4px;
+  transform: rotate(180deg);
+}
+
+.fp-card-value {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.fp-card-suit {
+  font-size: 10px;
+}
+
+.fp-card-player {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 4px 4px 4px;
+}
+
+.fp-card-player img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #eee;
+}
+
+.fp-card-info {
+  padding: 2px 4px 4px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.fp-card-name {
+  display: block;
+  font-size: 7px;
+  font-weight: bold;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fp-card-league {
+  display: block;
+  font-size: 6px;
+  color: #666;
+}
+
+.fp-card-swap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffd700;
+  color: #1a1a1a;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+/* Pot Area */
+.fp-pot {
+  text-align: center;
+  padding: 12px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.fp-win {
+  color: #4ecdc4;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.fp-lose {
+  color: #ff6b6b;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.fp-tie {
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* Actions */
+.fp-actions {
+  text-align: center;
+  padding: 16px;
+}
+
+.fp-hint {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.fp-action-btns {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.fp-action-btn {
+  padding: 14px 28px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+  border: none;
+}
+
+.fp-action-btn:hover {
+  transform: scale(1.05);
+}
+
+.fp-draw-btn {
+  background: linear-gradient(135deg, #ffd700, #ffaa00);
+  color: #1a1a1a;
+}
+
+.fp-stand-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.fp-new-btn {
+  background: linear-gradient(135deg, #4ecdc4, #2cb5ac);
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .fp-card {
+    width: 55px;
+    height: 82px;
+  }
+
+  .fp-card-player img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .fp-card-name {
+    font-size: 6px;
+  }
+
+  .fp-legend {
+    gap: 10px;
+  }
+
+  .fp-legend-item {
+    font-size: 10px;
+  }
+}
