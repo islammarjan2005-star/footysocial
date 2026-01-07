@@ -21,9 +21,10 @@ interface LandingPageProps {
   onPlayGuessWho: () => void;
   onPlaySquadBuilder: () => void;
   onPlayHigherLower: () => void;
+  onPlayBlindRanking: () => void;
 }
 
-export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLower }: LandingPageProps) {
+export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLower, onPlayBlindRanking }: LandingPageProps) {
   const [animateHero, setAnimateHero] = useState(false);
 
   useEffect(() => {
@@ -196,12 +197,12 @@ export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLo
             <div className="hl-preview">
               <div className="hl-preview-cards">
                 <div className="hl-preview-card left">
-                  <img src="https://img.a.transfermarkt.technology/portrait/big/8198-1694609670.jpg" alt="Ronaldo" />
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/20801.png" alt="Ronaldo" />
                   <div className="hl-preview-stat">639M</div>
                 </div>
                 <div className="hl-preview-vs">VS</div>
                 <div className="hl-preview-card right">
-                  <img src="https://img.a.transfermarkt.technology/portrait/big/28003-1710080339.jpg" alt="Messi" />
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/158023.png" alt="Messi" />
                   <div className="hl-preview-question">?</div>
                 </div>
               </div>
@@ -214,6 +215,46 @@ export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLo
             <div className="game-card-features">
               <span className="feature"><UsersIcon size={16} /> 1 Player</span>
               <span className="feature"><ClockIcon size={16} /> Endless</span>
+              <span className="feature"><TrophyIcon size={16} /> High Scores</span>
+            </div>
+            <button className="play-button">
+              <span>Play Now</span>
+              <span className="play-arrow"><ArrowRightIcon size={20} /></span>
+            </button>
+          </div>
+
+          {/* Blind Ranking Game Card */}
+          <div className="game-card featured blind-ranking-style" onClick={onPlayBlindRanking}>
+            <div className="game-card-badge">New</div>
+            <div className="br-preview">
+              <div className="br-preview-ranks">
+                <div className="br-preview-item">
+                  <span className="br-rank">#1</span>
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/231866.png" alt="Rodri" />
+                </div>
+                <div className="br-preview-item">
+                  <span className="br-rank">#2</span>
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/238794.png" alt="Vinicius" />
+                </div>
+                <div className="br-preview-item">
+                  <span className="br-rank">#3</span>
+                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/239085.png" alt="Haaland" />
+                </div>
+                <div className="br-preview-item faded">
+                  <span className="br-rank">#4</span>
+                  <span className="br-question">?</span>
+                </div>
+              </div>
+              <div className="br-preview-label">Ballon d'Or 2024</div>
+            </div>
+            <h3 className="game-card-title">Blind Ranking</h3>
+            <p className="game-card-subtitle">Test Your Knowledge</p>
+            <p className="game-card-description">
+              Rank 10 players by stats without seeing the numbers. How well do you know the game?
+            </p>
+            <div className="game-card-features">
+              <span className="feature"><UsersIcon size={16} /> 1 Player</span>
+              <span className="feature"><ClockIcon size={16} /> 5-10 min</span>
               <span className="feature"><TrophyIcon size={16} /> High Scores</span>
             </div>
             <button className="play-button">

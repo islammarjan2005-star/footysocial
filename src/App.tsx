@@ -9,9 +9,10 @@ import { GameOver } from './components/GameOver';
 import { LandingPage } from './components/LandingPage';
 import { SquadBuilder } from './components/SquadBuilder';
 import { HigherLower } from './components/HigherLower';
+import { BlindRanking } from './components/BlindRanking';
 import './App.css';
 
-type AppView = 'landing' | 'guess-who' | 'squad-builder' | 'higher-lower';
+type AppView = 'landing' | 'guess-who' | 'squad-builder' | 'higher-lower' | 'blind-ranking';
 
 function GameContent({ onBackToLanding }: { onBackToLanding: () => void }) {
   const { state } = useGame();
@@ -51,6 +52,10 @@ function App() {
     setCurrentView('higher-lower');
   };
 
+  const handlePlayBlindRanking = () => {
+    setCurrentView('blind-ranking');
+  };
+
   const handleBackToLanding = () => {
     setCurrentView('landing');
   };
@@ -62,6 +67,7 @@ function App() {
           onPlayGuessWho={handlePlayGuessWho}
           onPlaySquadBuilder={handlePlaySquadBuilder}
           onPlayHigherLower={handlePlayHigherLower}
+          onPlayBlindRanking={handlePlayBlindRanking}
         />
       </div>
     );
@@ -79,6 +85,14 @@ function App() {
     return (
       <div className="app">
         <HigherLower onBack={handleBackToLanding} />
+      </div>
+    );
+  }
+
+  if (currentView === 'blind-ranking') {
+    return (
+      <div className="app">
+        <BlindRanking onBack={handleBackToLanding} />
       </div>
     );
   }
