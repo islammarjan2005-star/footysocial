@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import {
   createDeck,
   shuffleDeck,
-  evaluateHand,
+  findBestHand,
   compareHands,
   getCardDisplayValue,
   getSuitSymbol,
@@ -18,138 +18,188 @@ interface FootballPokerProps {
   onBack: () => void;
 }
 
-type GamePhase = 'betting' | 'dealt' | 'draw' | 'result';
+type GamePhase = 'betting' | 'preflop' | 'flop' | 'turn' | 'river' | 'showdown';
 
 const STARTING_CHIPS = 1000;
-const ANTE = 10;
+const BIG_BLIND = 20;
+const SMALL_BLIND = 10;
 
 export function FootballPoker({ onBack }: FootballPokerProps) {
   const [chips, setChips] = useState(STARTING_CHIPS);
   const [pot, setPot] = useState(0);
   const [phase, setPhase] = useState<GamePhase>('betting');
   const [deck, setDeck] = useState<FootballCard[]>([]);
-  const [playerHand, setPlayerHand] = useState<FootballCard[]>([]);
-  const [dealerHand, setDealerHand] = useState<FootballCard[]>([]);
-  const [selectedCards, setSelectedCards] = useState<Set<number>>(new Set());
+  const [playerHole, setPlayerHole] = useState<FootballCard[]>([]);
+  const [dealerHole, setDealerHole] = useState<FootballCard[]>([]);
+  const [community, setCommunity] = useState<FootballCard[]>([]);
   const [playerResult, setPlayerResult] = useState<HandResult | null>(null);
   const [dealerResult, setDealerResult] = useState<HandResult | null>(null);
   const [winner, setWinner] = useState<'player' | 'dealer' | 'tie' | null>(null);
-  const [showDealerCards, setShowDealerCards] = useState(false);
 
-  const dealCards = useCallback(() => {
-    if (chips < ANTE) return;
+  const dealHoleCards = useCallback(() => {
+    if (chips < BIG_BLIND) return;
 
     const newDeck = shuffleDeck(createDeck());
-    const pHand = newDeck.slice(0, 5);
-    const dHand = newDeck.slice(5, 10);
-    const remaining = newDeck.slice(10);
+
+    // Deal 2 cards to player and 2 to dealer
+    const pHole = [newDeck[0], newDeck[2]]; // Alternating deal
+    const dHole = [newDeck[1], newDeck[3]];
+    const remaining = newDeck.slice(4);
 
     setDeck(remaining);
-    setPlayerHand(pHand);
-    setDealerHand(dHand);
-    setChips(c => c - ANTE);
-    setPot(ANTE * 2); // Both player and dealer ante
-    setPhase('dealt');
-    setSelectedCards(new Set());
+    setPlayerHole(pHole);
+    setDealerHole(dHole);
+    setCommunity([]);
+    setChips(c => c - BIG_BLIND);
+    setPot(BIG_BLIND + SMALL_BLIND); // Player posts big blind, dealer posts small
+    setPhase('preflop');
     setPlayerResult(null);
     setDealerResult(null);
     setWinner(null);
-    setShowDealerCards(false);
   }, [chips]);
 
-  const toggleCardSelection = useCallback((index: number) => {
-    if (phase !== 'dealt') return;
-    setSelectedCards(prev => {
-      const next = new Set(prev);
-      if (next.has(index)) {
-        next.delete(index);
-      } else {
-        next.add(index);
-      }
-      return next;
-    });
-  }, [phase]);
+  const dealFlop = useCallback(() => {
+    // Burn one, deal 3
+    const flop = deck.slice(1, 4);
+    setCommunity(flop);
+    setDeck(deck.slice(4));
+    setPhase('flop');
+  }, [deck]);
 
-  const drawCards = useCallback(() => {
-    // Replace selected cards with new ones from deck
-    const newHand = [...playerHand];
+  const dealTurn = useCallback(() => {
+    // Burn one, deal 1
+    const turnCard = deck[1];
+    setCommunity(prev => [...prev, turnCard]);
+    setDeck(deck.slice(2));
+    setPhase('turn');
+  }, [deck]);
+
+  const dealRiver = useCallback(() => {
+    // Burn one, deal 1
+    const riverCard = deck[1];
+    setCommunity(prev => [...prev, riverCard]);
+    setDeck(deck.slice(2));
+    setPhase('river');
+  }, [deck]);
+
+  const goToShowdown = useCallback(() => {
+    // Evaluate both hands
+    const playerCards = [...playerHole, ...community];
+    const dealerCards = [...dealerHole, ...community];
+
+    const pResult = findBestHand(playerCards);
+    const dResult = findBestHand(dealerCards);
+
+    setPlayerResult(pResult);
+    setDealerResult(dResult);
+
+    const comparison = compareHands(pResult, dResult);
+
+    if (comparison > 0) {
+      setWinner('player');
+      setChips(c => c + pot);
+    } else if (comparison < 0) {
+      setWinner('dealer');
+    } else {
+      setWinner('tie');
+      setChips(c => c + Math.floor(pot / 2));
+    }
+
+    setPhase('showdown');
+    setPot(0);
+  }, [playerHole, dealerHole, community, pot]);
+
+  const handleCheck = useCallback(() => {
+    // Check/Call - advance to next street
+    switch (phase) {
+      case 'preflop':
+        dealFlop();
+        break;
+      case 'flop':
+        dealTurn();
+        break;
+      case 'turn':
+        dealRiver();
+        break;
+      case 'river':
+        goToShowdown();
+        break;
+    }
+  }, [phase, dealFlop, dealTurn, dealRiver, goToShowdown]);
+
+  const handleBet = useCallback(() => {
+    const betAmount = BIG_BLIND;
+    if (chips < betAmount) return;
+
+    setChips(c => c - betAmount);
+    setPot(p => p + betAmount * 2); // Dealer calls
+
+    // Then advance
+    handleCheck();
+  }, [chips, handleCheck]);
+
+  const handleFold = useCallback(() => {
+    setWinner('dealer');
+    setPhase('showdown');
+    setPot(0);
+  }, []);
+
+  const handleAllIn = useCallback(() => {
+    const allInAmount = Math.min(chips, 100); // Cap at 100 for simplicity
+    setChips(c => c - allInAmount);
+    setPot(p => p + allInAmount * 2);
+
+    // Deal remaining community cards and go to showdown
+    let newCommunity = [...community];
     let deckIndex = 0;
+    let currentDeck = [...deck];
 
-    selectedCards.forEach(cardIndex => {
-      if (deckIndex < deck.length) {
-        newHand[cardIndex] = deck[deckIndex];
+    while (newCommunity.length < 5 && deckIndex < currentDeck.length) {
+      deckIndex++; // Burn
+      if (deckIndex < currentDeck.length) {
+        newCommunity.push(currentDeck[deckIndex]);
         deckIndex++;
       }
-    });
+    }
 
-    setPlayerHand(newHand);
-    setDeck(deck.slice(deckIndex));
-    setPhase('draw');
+    setCommunity(newCommunity);
 
-    // Evaluate hands and determine winner
+    // Evaluate
     setTimeout(() => {
-      const pResult = evaluateHand(newHand);
-      const dResult = evaluateHand(dealerHand);
+      const playerCards = [...playerHole, ...newCommunity];
+      const dealerCards = [...dealerHole, ...newCommunity];
+
+      const pResult = findBestHand(playerCards);
+      const dResult = findBestHand(dealerCards);
 
       setPlayerResult(pResult);
       setDealerResult(dResult);
-      setShowDealerCards(true);
 
       const comparison = compareHands(pResult, dResult);
 
       if (comparison > 0) {
         setWinner('player');
-        setChips(c => c + pot);
+        setChips(c => c + pot + allInAmount * 2);
       } else if (comparison < 0) {
         setWinner('dealer');
       } else {
         setWinner('tie');
-        setChips(c => c + pot / 2); // Return half on tie
+        setChips(c => c + Math.floor((pot + allInAmount * 2) / 2));
       }
 
-      setPhase('result');
+      setPhase('showdown');
       setPot(0);
-    }, 500);
-  }, [playerHand, dealerHand, selectedCards, deck, pot]);
-
-  const standPat = useCallback(() => {
-    // Keep all cards, go straight to showdown
-    setPhase('draw');
-
-    setTimeout(() => {
-      const pResult = evaluateHand(playerHand);
-      const dResult = evaluateHand(dealerHand);
-
-      setPlayerResult(pResult);
-      setDealerResult(dResult);
-      setShowDealerCards(true);
-
-      const comparison = compareHands(pResult, dResult);
-
-      if (comparison > 0) {
-        setWinner('player');
-        setChips(c => c + pot);
-      } else if (comparison < 0) {
-        setWinner('dealer');
-      } else {
-        setWinner('tie');
-        setChips(c => c + pot / 2);
-      }
-
-      setPhase('result');
-      setPot(0);
-    }, 500);
-  }, [playerHand, dealerHand, pot]);
+    }, 100);
+  }, [chips, community, deck, playerHole, dealerHole, pot]);
 
   const newGame = useCallback(() => {
     setPhase('betting');
-    setPlayerHand([]);
-    setDealerHand([]);
-    setSelectedCards(new Set());
+    setPlayerHole([]);
+    setDealerHole([]);
+    setCommunity([]);
     setPlayerResult(null);
     setDealerResult(null);
     setWinner(null);
-    setShowDealerCards(false);
   }, []);
 
   const resetGame = useCallback(() => {
@@ -157,11 +207,22 @@ export function FootballPoker({ onBack }: FootballPokerProps) {
     newGame();
   }, [newGame]);
 
+  const getPhaseName = () => {
+    switch (phase) {
+      case 'preflop': return 'Pre-Flop';
+      case 'flop': return 'The Flop';
+      case 'turn': return 'The Turn';
+      case 'river': return 'The River';
+      case 'showdown': return 'Showdown';
+      default: return '';
+    }
+  };
+
   return (
     <div className="football-poker">
       <header className="fp-header">
         <button className="fp-back-btn" onClick={onBack}>← Back</button>
-        <h1>Football Poker</h1>
+        <h1>Football Hold'em</h1>
         <div className="fp-chips">💰 {chips}</div>
       </header>
 
@@ -183,11 +244,11 @@ export function FootballPoker({ onBack }: FootballPokerProps) {
       {phase === 'betting' && (
         <div className="fp-betting">
           <div className="fp-ante-info">
-            <p>Ante: {ANTE} chips</p>
-            <p>5-Card Draw Poker</p>
+            <p>Big Blind: {BIG_BLIND} chips</p>
+            <p>Texas Hold'em</p>
           </div>
-          {chips >= ANTE ? (
-            <button className="fp-deal-btn" onClick={dealCards}>
+          {chips >= BIG_BLIND ? (
+            <button className="fp-deal-btn" onClick={dealHoleCards}>
               Deal Cards
             </button>
           ) : (
@@ -201,18 +262,24 @@ export function FootballPoker({ onBack }: FootballPokerProps) {
         </div>
       )}
 
-      {(phase === 'dealt' || phase === 'draw' || phase === 'result') && (
+      {phase !== 'betting' && (
         <div className="fp-game-area">
-          {/* Dealer's Hand */}
+          {/* Phase indicator */}
+          <div className="fp-phase-indicator">
+            <span className="fp-phase-name">{getPhaseName()}</span>
+            {pot > 0 && <span className="fp-pot-amount">Pot: {pot}</span>}
+          </div>
+
+          {/* Dealer's Hole Cards */}
           <div className="fp-hand-section fp-dealer-section">
-            <h3>Dealer's Hand {dealerResult && `- ${handRankNames[dealerResult.rank]}`}</h3>
-            <div className="fp-hand">
-              {dealerHand.map((card, i) => (
+            <h3>Dealer {dealerResult && phase === 'showdown' && `- ${handRankNames[dealerResult.rank]}`}</h3>
+            <div className="fp-hand fp-hole-cards">
+              {dealerHole.map((card, i) => (
                 <div
                   key={i}
-                  className={`fp-card ${!showDealerCards ? 'fp-card-back' : ''}`}
+                  className={`fp-card ${phase !== 'showdown' ? 'fp-card-back' : ''}`}
                 >
-                  {showDealerCards ? (
+                  {phase === 'showdown' ? (
                     <CardFace card={card} />
                   ) : (
                     <div className="fp-card-back-design">⚽</div>
@@ -220,57 +287,73 @@ export function FootballPoker({ onBack }: FootballPokerProps) {
                 </div>
               ))}
             </div>
-            {dealerResult && showDealerCards && (
+            {dealerResult && phase === 'showdown' && (
               <p className="fp-hand-desc">{handRankFootballDesc[dealerResult.rank]}</p>
             )}
           </div>
 
-          {/* Pot */}
-          <div className="fp-pot">
-            {pot > 0 && <span>Pot: {pot}</span>}
-            {winner === 'player' && <span className="fp-win">You Win!</span>}
-            {winner === 'dealer' && <span className="fp-lose">Dealer Wins</span>}
-            {winner === 'tie' && <span className="fp-tie">Push</span>}
-          </div>
-
-          {/* Player's Hand */}
-          <div className="fp-hand-section fp-player-section">
-            <h3>Your Hand {playerResult && `- ${handRankNames[playerResult.rank]}`}</h3>
-            <div className="fp-hand">
-              {playerHand.map((card, i) => (
+          {/* Community Cards */}
+          <div className="fp-community-section">
+            <h3>Community Cards</h3>
+            <div className="fp-hand fp-community-cards">
+              {[0, 1, 2, 3, 4].map(i => (
                 <div
                   key={i}
-                  className={`fp-card ${selectedCards.has(i) ? 'fp-card-selected' : ''}`}
-                  onClick={() => toggleCardSelection(i)}
+                  className={`fp-card fp-community-card ${i >= community.length ? 'fp-card-empty' : ''}`}
                 >
-                  <CardFace card={card} />
-                  {phase === 'dealt' && selectedCards.has(i) && (
-                    <div className="fp-card-swap">SWAP</div>
+                  {i < community.length ? (
+                    <CardFace card={community[i]} />
+                  ) : (
+                    <div className="fp-card-placeholder">?</div>
                   )}
                 </div>
               ))}
             </div>
-            {playerResult && (
+          </div>
+
+          {/* Result */}
+          {phase === 'showdown' && (
+            <div className="fp-result">
+              {winner === 'player' && <span className="fp-win">You Win!</span>}
+              {winner === 'dealer' && <span className="fp-lose">Dealer Wins</span>}
+              {winner === 'tie' && <span className="fp-tie">Split Pot!</span>}
+            </div>
+          )}
+
+          {/* Player's Hole Cards */}
+          <div className="fp-hand-section fp-player-section">
+            <h3>Your Cards {playerResult && phase === 'showdown' && `- ${handRankNames[playerResult.rank]}`}</h3>
+            <div className="fp-hand fp-hole-cards">
+              {playerHole.map((card, i) => (
+                <div key={i} className="fp-card fp-player-card">
+                  <CardFace card={card} />
+                </div>
+              ))}
+            </div>
+            {playerResult && phase === 'showdown' && (
               <p className="fp-hand-desc">{handRankFootballDesc[playerResult.rank]}</p>
             )}
           </div>
 
           {/* Actions */}
           <div className="fp-actions">
-            {phase === 'dealt' && (
-              <>
-                <p className="fp-hint">Tap cards to swap (up to 5)</p>
-                <div className="fp-action-btns">
-                  <button className="fp-action-btn fp-draw-btn" onClick={drawCards}>
-                    {selectedCards.size > 0 ? `Draw ${selectedCards.size}` : 'Draw'}
-                  </button>
-                  <button className="fp-action-btn fp-stand-btn" onClick={standPat}>
-                    Stand Pat
-                  </button>
-                </div>
-              </>
+            {phase !== 'showdown' && (
+              <div className="fp-action-btns">
+                <button className="fp-action-btn fp-check-btn" onClick={handleCheck}>
+                  {phase === 'river' ? 'Show' : 'Check'}
+                </button>
+                <button className="fp-action-btn fp-bet-btn" onClick={handleBet} disabled={chips < BIG_BLIND}>
+                  Bet {BIG_BLIND}
+                </button>
+                <button className="fp-action-btn fp-allin-btn" onClick={handleAllIn}>
+                  All In
+                </button>
+                <button className="fp-action-btn fp-fold-btn" onClick={handleFold}>
+                  Fold
+                </button>
+              </div>
             )}
-            {phase === 'result' && (
+            {phase === 'showdown' && (
               <button className="fp-action-btn fp-new-btn" onClick={newGame}>
                 New Hand
               </button>

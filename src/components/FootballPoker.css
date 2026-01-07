@@ -356,8 +356,117 @@
   color: white;
 }
 
+/* Texas Hold'em specific styles */
+.fp-phase-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.fp-phase-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffd700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.fp-pot-amount {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.fp-community-section {
+  text-align: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  margin: 8px 0;
+}
+
+.fp-community-section h3 {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.fp-community-cards {
+  gap: 10px;
+}
+
+.fp-card-empty {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+.fp-card-empty:hover {
+  transform: none;
+}
+
+.fp-card-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.fp-hole-cards {
+  gap: 12px;
+}
+
+.fp-player-card {
+  border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.fp-result {
+  text-align: center;
+  padding: 16px;
+}
+
+.fp-result .fp-win,
+.fp-result .fp-lose,
+.fp-result .fp-tie {
+  font-size: 24px;
+}
+
+/* Action buttons for Hold'em */
+.fp-check-btn {
+  background: linear-gradient(135deg, #4ecdc4, #2cb5ac);
+  color: white;
+}
+
+.fp-bet-btn {
+  background: linear-gradient(135deg, #ffd700, #ffaa00);
+  color: #1a1a1a;
+}
+
+.fp-bet-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.fp-allin-btn {
+  background: linear-gradient(135deg, #e63946, #c53030);
+  color: white;
+}
+
+.fp-fold-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
 /* Responsive */
-@media (max-width: 400px) {
+@media (max-width: 480px) {
   .fp-card {
     width: 55px;
     height: 82px;
@@ -378,5 +487,20 @@
 
   .fp-legend-item {
     font-size: 10px;
+  }
+
+  .fp-action-btns {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .fp-action-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .fp-phase-indicator {
+    flex-direction: column;
+    gap: 4px;
   }
 }

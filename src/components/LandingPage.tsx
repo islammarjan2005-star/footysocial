@@ -288,15 +288,15 @@ export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLo
               </div>
               <div className="poker-preview-hand">PAIR OF 9s</div>
             </div>
-            <h3 className="game-card-title">Football Poker</h3>
+            <h3 className="game-card-title">Football Hold'em</h3>
             <p className="game-card-subtitle">Suits = Leagues</p>
             <p className="game-card-description">
-              Classic poker where suits are leagues and numbers are shirt numbers. Real footballers on every card!
+              Texas Hold'em where suits are leagues and numbers are shirt numbers. Real footballers on every card!
             </p>
             <div className="game-card-features">
               <span className="feature"><UsersIcon size={16} /> 1 Player</span>
               <span className="feature"><ClockIcon size={16} /> 5-10 min</span>
-              <span className="feature"><TrophyIcon size={16} /> 5-Card Draw</span>
+              <span className="feature"><TrophyIcon size={16} /> Texas Hold'em</span>
             </div>
             <button className="play-button">
               <span>Play Now</span>

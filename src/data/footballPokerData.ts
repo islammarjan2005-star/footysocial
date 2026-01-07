@@ -317,3 +317,48 @@ export function compareHands(hand1: HandResult, hand2: HandResult): number {
 
   return 0; // Tie
 }
+
+// Find best 5-card hand from 7 cards (for Texas Hold'em)
+export function findBestHand(cards: FootballCard[]): HandResult {
+  if (cards.length < 5) {
+    throw new Error('Need at least 5 cards');
+  }
+
+  if (cards.length === 5) {
+    return evaluateHand(cards);
+  }
+
+  // Generate all 5-card combinations from 7 cards
+  const combinations = getCombinations(cards, 5);
+  let bestHand: HandResult | null = null;
+
+  for (const combo of combinations) {
+    const result = evaluateHand(combo);
+    if (!bestHand || compareHands(result, bestHand) > 0) {
+      bestHand = result;
+    }
+  }
+
+  return bestHand!;
+}
+
+// Generate all combinations of size k from array
+function getCombinations<T>(arr: T[], k: number): T[][] {
+  const result: T[][] = [];
+
+  function combine(start: number, combo: T[]) {
+    if (combo.length === k) {
+      result.push([...combo]);
+      return;
+    }
+
+    for (let i = start; i < arr.length; i++) {
+      combo.push(arr[i]);
+      combine(i + 1, combo);
+      combo.pop();
+    }
+  }
+
+  combine(0, []);
+  return result;
+}
