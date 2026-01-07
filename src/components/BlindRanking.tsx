@@ -39,12 +39,13 @@ export function BlindRanking({ onBack }: BlindRankingProps) {
   const [gameState, setGameState] = useState<GameState>('intro');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [rankedPlayers, setRankedPlayers] = useState<RankedPlayer[]>([]);
+  const [gameKey, setGameKey] = useState(0); // Used to trigger reshuffle
 
   // Shuffle players once when starting a new game
   const shuffledPlayers = useMemo(() => {
     const shuffled = [...blindRankingPlayers].sort(() => Math.random() - 0.5);
     return shuffled.slice(0, PLAYER_COUNT);
-  }, [gameState === 'intro']); // Re-shuffle when returning to intro
+  }, [gameKey]);
 
   const currentPlayer = shuffledPlayers[currentIndex];
   const isLastPlayer = currentIndex === PLAYER_COUNT - 1;
@@ -76,6 +77,7 @@ export function BlindRanking({ onBack }: BlindRankingProps) {
     setGameState('intro');
     setCurrentIndex(0);
     setRankedPlayers([]);
+    setGameKey(k => k + 1); // Trigger new shuffle
   }, []);
 
   // Group players by tier for results
