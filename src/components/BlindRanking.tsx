@@ -101,7 +101,7 @@ export function BlindRanking({ onBack }: BlindRankingProps) {
         <button className="br-back-btn" onClick={onBack}>
           ← Back
         </button>
-        <h1>Blind Ranking</h1>
+        <h1>Blind Tier List</h1>
         {gameState === 'ranking' && (
           <div className="br-progress-counter">{currentIndex + 1}/{PLAYER_COUNT}</div>
         )}
