@@ -52,7 +52,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'ronaldo',
     name: 'Cristiano Ronaldo',
     team: 'Al-Nassr',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/8198-1694609670.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/20801.png',
     stats: [
       { type: 'instagram', value: 639, display: '639M', unit: 'million followers' },
       { type: 'goals', value: 899, display: '899', unit: 'career goals' },
@@ -66,7 +66,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'messi',
     name: 'Lionel Messi',
     team: 'Inter Miami',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/28003-1710080339.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/158023.png',
     stats: [
       { type: 'instagram', value: 504, display: '504M', unit: 'million followers' },
       { type: 'goals', value: 838, display: '838', unit: 'career goals' },
@@ -80,7 +80,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'neymar',
     name: 'Neymar Jr',
     team: 'Al-Hilal',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/68290-1701443760.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/190871.png',
     stats: [
       { type: 'instagram', value: 225, display: '225M', unit: 'million followers' },
       { type: 'goals', value: 439, display: '439', unit: 'career goals' },
@@ -94,7 +94,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'mbappe',
     name: 'Kylian Mbappé',
     team: 'Real Madrid',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/342229-1682683695.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/231747.png',
     stats: [
       { type: 'instagram', value: 118, display: '118M', unit: 'million followers' },
       { type: 'goals', value: 297, display: '297', unit: 'career goals' },
@@ -109,7 +109,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'vinicius',
     name: 'Vinicius Jr',
     team: 'Real Madrid',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/371998-1697036605.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/238794.png',
     stats: [
       { type: 'instagram', value: 56, display: '56M', unit: 'million followers' },
       { type: 'goals', value: 108, display: '108', unit: 'career goals' },
@@ -123,7 +123,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'haaland',
     name: 'Erling Haaland',
     team: 'Manchester City',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/418560-1696931286.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/239085.png',
     stats: [
       { type: 'instagram', value: 42, display: '42M', unit: 'million followers' },
       { type: 'goals', value: 267, display: '267', unit: 'career goals' },
@@ -138,7 +138,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'bellingham',
     name: 'Jude Bellingham',
     team: 'Real Madrid',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/581678-1693987498.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/252371.png',
     stats: [
       { type: 'instagram', value: 32, display: '32M', unit: 'million followers' },
       { type: 'goals', value: 68, display: '68', unit: 'career goals' },
@@ -152,7 +152,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'salah',
     name: 'Mohamed Salah',
     team: 'Liverpool',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/148455-1717591157.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/209331.png',
     stats: [
       { type: 'instagram', value: 65, display: '65M', unit: 'million followers' },
       { type: 'goals', value: 316, display: '316', unit: 'career goals' },
@@ -167,7 +167,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'benzema',
     name: 'Karim Benzema',
     team: 'Al-Ittihad',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/18922-1695029858.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/165153.png',
     stats: [
       { type: 'instagram', value: 72, display: '72M', unit: 'million followers' },
       { type: 'goals', value: 452, display: '452', unit: 'career goals' },
@@ -180,7 +180,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'debruyne',
     name: 'Kevin De Bruyne',
     team: 'Manchester City',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/88755-1695029646.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/192985.png',
     stats: [
       { type: 'instagram', value: 20, display: '20M', unit: 'million followers' },
       { type: 'goals', value: 118, display: '118', unit: 'career goals' },
@@ -196,7 +196,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'lewandowski',
     name: 'Robert Lewandowski',
     team: 'Barcelona',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/38253-1701097659.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/188545.png',
     stats: [
       { type: 'instagram', value: 34, display: '34M', unit: 'million followers' },
       { type: 'goals', value: 653, display: '653', unit: 'career goals' },
@@ -210,7 +210,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'kane',
     name: 'Harry Kane',
     team: 'Bayern Munich',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/132098-1696510722.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/202126.png',
     stats: [
       { type: 'instagram', value: 16, display: '16M', unit: 'million followers' },
       { type: 'goals', value: 355, display: '355', unit: 'career goals' },
@@ -225,7 +225,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'pedri',
     name: 'Pedri',
     team: 'Barcelona',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/581524-1696931593.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/260746.png',
     stats: [
       { type: 'instagram', value: 18, display: '18M', unit: 'million followers' },
       { type: 'goals', value: 22, display: '22', unit: 'career goals' },
@@ -239,7 +239,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'modric',
     name: 'Luka Modrić',
     team: 'Real Madrid',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/27992-1695029422.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/177003.png',
     stats: [
       { type: 'instagram', value: 24, display: '24M', unit: 'million followers' },
       { type: 'goals', value: 78, display: '78', unit: 'career goals' },
@@ -253,7 +253,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'kroos',
     name: 'Toni Kroos',
     team: 'Retired',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/31909-1695029522.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/182521.png',
     stats: [
       { type: 'instagram', value: 46, display: '46M', unit: 'million followers' },
       { type: 'goals', value: 74, display: '74', unit: 'career goals' },
@@ -267,7 +267,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'rashford',
     name: 'Marcus Rashford',
     team: 'Manchester United',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/258923-1696938849.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/231677.png',
     stats: [
       { type: 'instagram', value: 38, display: '38M', unit: 'million followers' },
       { type: 'goals', value: 138, display: '138', unit: 'career goals' },
@@ -282,7 +282,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'pogba',
     name: 'Paul Pogba',
     team: 'Free Agent',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/122153-1660911757.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/195864.png',
     stats: [
       { type: 'instagram', value: 61, display: '61M', unit: 'million followers' },
       { type: 'goals', value: 62, display: '62', unit: 'career goals' },
@@ -295,7 +295,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'griezmann',
     name: 'Antoine Griezmann',
     team: 'Atlético Madrid',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/125037-1696939338.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/194765.png',
     stats: [
       { type: 'instagram', value: 44, display: '44M', unit: 'million followers' },
       { type: 'goals', value: 281, display: '281', unit: 'career goals' },
@@ -309,7 +309,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'dybala',
     name: 'Paulo Dybala',
     team: 'Roma',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/206050-1694436359.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/211110.png',
     stats: [
       { type: 'instagram', value: 52, display: '52M', unit: 'million followers' },
       { type: 'goals', value: 152, display: '152', unit: 'career goals' },
@@ -323,7 +323,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'yamal',
     name: 'Lamine Yamal',
     team: 'Barcelona',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/936545-1701626225.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/277572.png',
     stats: [
       { type: 'instagram', value: 26, display: '26M', unit: 'million followers' },
       { type: 'goals', value: 14, display: '14', unit: 'career goals' },
@@ -337,7 +337,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'saka',
     name: 'Bukayo Saka',
     team: 'Arsenal',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/433177-1694436260.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/246669.png',
     stats: [
       { type: 'instagram', value: 8, display: '8M', unit: 'million followers' },
       { type: 'goals', value: 67, display: '67', unit: 'career goals' },
@@ -351,7 +351,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'foden',
     name: 'Phil Foden',
     team: 'Manchester City',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/406635-1694436156.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/237692.png',
     stats: [
       { type: 'instagram', value: 12, display: '12M', unit: 'million followers' },
       { type: 'goals', value: 85, display: '85', unit: 'career goals' },
@@ -365,7 +365,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'bruno',
     name: 'Bruno Fernandes',
     team: 'Manchester United',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/240306-1696938771.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/212198.png',
     stats: [
       { type: 'instagram', value: 14, display: '14M', unit: 'million followers' },
       { type: 'goals', value: 138, display: '138', unit: 'career goals' },
@@ -380,7 +380,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'vandijk',
     name: 'Virgil van Dijk',
     team: 'Liverpool',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/139208-1695029906.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/203376.png',
     stats: [
       { type: 'instagram', value: 17, display: '17M', unit: 'million followers' },
       { type: 'goals', value: 47, display: '47', unit: 'career goals' },
@@ -394,7 +394,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'alisson',
     name: 'Alisson Becker',
     team: 'Liverpool',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/105470-1695029983.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/212831.png',
     stats: [
       { type: 'instagram', value: 16, display: '16M', unit: 'million followers' },
       { type: 'goals', value: 1, display: '1', unit: 'career goals' },
@@ -408,7 +408,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'courtois',
     name: 'Thibaut Courtois',
     team: 'Real Madrid',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/108390-1695030142.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/192119.png',
     stats: [
       { type: 'instagram', value: 19, display: '19M', unit: 'million followers' },
       { type: 'trophies', value: 13, display: '13', unit: 'major trophies' },
@@ -421,7 +421,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'rodri',
     name: 'Rodri',
     team: 'Manchester City',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/357565-1696932258.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/231866.png',
     stats: [
       { type: 'instagram', value: 5, display: '5M', unit: 'million followers' },
       { type: 'goals', value: 44, display: '44', unit: 'career goals' },
@@ -435,7 +435,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'silva',
     name: 'Bernardo Silva',
     team: 'Manchester City',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/241641-1696931850.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/221697.png',
     stats: [
       { type: 'instagram', value: 8, display: '8M', unit: 'million followers' },
       { type: 'goals', value: 78, display: '78', unit: 'career goals' },
@@ -450,7 +450,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'osimhen',
     name: 'Victor Osimhen',
     team: 'Galatasaray',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/401923-1694436464.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/232419.png',
     stats: [
       { type: 'instagram', value: 7, display: '7M', unit: 'million followers' },
       { type: 'goals', value: 123, display: '123', unit: 'career goals' },
@@ -464,7 +464,7 @@ export const higherLowerPlayers: HigherLowerPlayer[] = [
     id: 'rice',
     name: 'Declan Rice',
     team: 'Arsenal',
-    imageUrl: 'https://img.a.transfermarkt.technology/portrait/big/401173-1696931473.jpg',
+    imageUrl: 'https://www.fifarosters.com/assets/players/fifa25/faces/234378.png',
     stats: [
       { type: 'instagram', value: 3, display: '3M', unit: 'million followers' },
       { type: 'goals', value: 22, display: '22', unit: 'career goals' },
