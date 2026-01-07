@@ -296,18 +296,26 @@ export function FootballPoker({ onBack }: FootballPokerProps) {
           <div className="fp-community-section">
             <h3>Community Cards</h3>
             <div className="fp-hand fp-community-cards">
-              {[0, 1, 2, 3, 4].map(i => (
-                <div
-                  key={i}
-                  className={`fp-card fp-community-card ${i >= community.length ? 'fp-card-empty' : ''}`}
-                >
-                  {i < community.length ? (
-                    <CardFace card={community[i]} />
-                  ) : (
-                    <div className="fp-card-placeholder">?</div>
-                  )}
-                </div>
-              ))}
+              {[0, 1, 2, 3, 4].map(i => {
+                const isRevealed = i < community.length;
+                // Use unique key based on card identity so new cards trigger animation
+                const cardKey = isRevealed
+                  ? `card-${community[i].player.name}-${community[i].suit}`
+                  : `empty-${i}`;
+                return (
+                  <div
+                    key={cardKey}
+                    className={`fp-card fp-community-card ${!isRevealed ? 'fp-card-empty' : ''}`}
+                    style={{ animationDelay: `${(i % 3) * 0.1}s` }}
+                  >
+                    {isRevealed ? (
+                      <CardFace card={community[i]} />
+                    ) : (
+                      <div className="fp-card-placeholder">?</div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
 

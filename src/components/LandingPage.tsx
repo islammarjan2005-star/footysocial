@@ -268,25 +268,61 @@ export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLo
           <div className="game-card featured football-poker-style" onClick={onPlayFootballPoker}>
             <div className="game-card-badge">New</div>
             <div className="poker-preview">
-              <div className="poker-preview-cards">
-                <div className="poker-card" style={{ background: '#e90052' }}>
-                  <span className="poker-value">9♥</span>
-                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/239085.png" alt="Haaland" />
+              {/* Felt table with ambient glow */}
+              <div className="poker-table">
+                <div className="poker-table-glow"></div>
+                {/* Community cards */}
+                <div className="poker-community">
+                  <div className="poker-card-premium">
+                    <div className="poker-card-inner">
+                      <span className="poker-corner top" style={{ color: '#e90052' }}>9<span>♥</span></span>
+                      <img src="https://www.fifarosters.com/assets/players/fifa25/faces/239085.png" alt="Haaland" />
+                      <span className="poker-corner bottom" style={{ color: '#e90052' }}>9<span>♥</span></span>
+                    </div>
+                  </div>
+                  <div className="poker-card-premium">
+                    <div className="poker-card-inner">
+                      <span className="poker-corner top" style={{ color: '#ee8707' }}>7<span>♦</span></span>
+                      <img src="https://www.fifarosters.com/assets/players/fifa25/faces/238794.png" alt="Vini" />
+                      <span className="poker-corner bottom" style={{ color: '#ee8707' }}>7<span>♦</span></span>
+                    </div>
+                  </div>
+                  <div className="poker-card-premium">
+                    <div className="poker-card-inner">
+                      <span className="poker-corner top" style={{ color: '#008fd7' }}>A<span>♣</span></span>
+                      <img src="https://www.fifarosters.com/assets/players/fifa25/faces/192985.png" alt="KDB" />
+                      <span className="poker-corner bottom" style={{ color: '#008fd7' }}>A<span>♣</span></span>
+                    </div>
+                  </div>
                 </div>
-                <div className="poker-card" style={{ background: '#ee8707' }}>
-                  <span className="poker-value">7♦</span>
-                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/238794.png" alt="Vini" />
+                {/* Pot chips */}
+                <div className="poker-pot">
+                  <span className="poker-chip"></span>
+                  <span className="poker-chip gold"></span>
+                  <span className="poker-chip"></span>
                 </div>
-                <div className="poker-card" style={{ background: '#008fd7' }}>
-                  <span className="poker-value">10♣</span>
-                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/211110.png" alt="Dybala" />
-                </div>
-                <div className="poker-card" style={{ background: '#d20515' }}>
-                  <span className="poker-value">9♠</span>
-                  <img src="https://www.fifarosters.com/assets/players/fifa25/faces/202126.png" alt="Kane" />
+                {/* Player hole cards */}
+                <div className="poker-hole-cards">
+                  <div className="poker-card-premium hole">
+                    <div className="poker-card-inner">
+                      <span className="poker-corner top" style={{ color: '#d20515' }}>9<span>♠</span></span>
+                      <img src="https://www.fifarosters.com/assets/players/fifa25/faces/202126.png" alt="Kane" />
+                      <span className="poker-corner bottom" style={{ color: '#d20515' }}>9<span>♠</span></span>
+                    </div>
+                  </div>
+                  <div className="poker-card-premium hole">
+                    <div className="poker-card-inner">
+                      <span className="poker-corner top" style={{ color: '#e90052' }}>K<span>♥</span></span>
+                      <img src="https://www.fifarosters.com/assets/players/fifa25/faces/209331.png" alt="Salah" />
+                      <span className="poker-corner bottom" style={{ color: '#e90052' }}>K<span>♥</span></span>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="poker-preview-hand">PAIR OF 9s</div>
+              <div className="poker-preview-hand">
+                <span className="hand-label">YOUR HAND</span>
+                <span className="hand-name">Pair of 9s</span>
+              </div>
             </div>
             <h3 className="game-card-title">Football Hold'em</h3>
             <p className="game-card-subtitle">Suits = Leagues</p>
