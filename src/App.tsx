@@ -8,9 +8,10 @@ import { GuessingScreen } from './components/GuessingScreen';
 import { GameOver } from './components/GameOver';
 import { LandingPage } from './components/LandingPage';
 import { SquadBuilder } from './components/SquadBuilder';
+import { HigherLower } from './components/HigherLower';
 import './App.css';
 
-type AppView = 'landing' | 'guess-who' | 'squad-builder';
+type AppView = 'landing' | 'guess-who' | 'squad-builder' | 'higher-lower';
 
 function GameContent({ onBackToLanding }: { onBackToLanding: () => void }) {
   const { state } = useGame();
@@ -46,6 +47,10 @@ function App() {
     setCurrentView('squad-builder');
   };
 
+  const handlePlayHigherLower = () => {
+    setCurrentView('higher-lower');
+  };
+
   const handleBackToLanding = () => {
     setCurrentView('landing');
   };
@@ -56,6 +61,7 @@ function App() {
         <LandingPage
           onPlayGuessWho={handlePlayGuessWho}
           onPlaySquadBuilder={handlePlaySquadBuilder}
+          onPlayHigherLower={handlePlayHigherLower}
         />
       </div>
     );
@@ -65,6 +71,14 @@ function App() {
     return (
       <div className="app">
         <SquadBuilder onBack={handleBackToLanding} />
+      </div>
+    );
+  }
+
+  if (currentView === 'higher-lower') {
+    return (
+      <div className="app">
+        <HigherLower onBack={handleBackToLanding} />
       </div>
     );
   }

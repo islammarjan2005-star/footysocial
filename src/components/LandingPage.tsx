@@ -20,9 +20,10 @@ import './LandingPage.css';
 interface LandingPageProps {
   onPlayGuessWho: () => void;
   onPlaySquadBuilder: () => void;
+  onPlayHigherLower: () => void;
 }
 
-export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder }: LandingPageProps) {
+export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder, onPlayHigherLower }: LandingPageProps) {
   const [animateHero, setAnimateHero] = useState(false);
 
   useEffect(() => {
@@ -182,6 +183,38 @@ export function LandingPage({ onPlayGuessWho, onPlaySquadBuilder }: LandingPageP
               <span className="feature"><UsersIcon size={16} /> 1-4 Players</span>
               <span className="feature"><ClockIcon size={16} /> 15-20 min</span>
               <span className="feature"><PhoneIcon size={16} /> Draft Mode</span>
+            </div>
+            <button className="play-button">
+              <span>Play Now</span>
+              <span className="play-arrow"><ArrowRightIcon size={20} /></span>
+            </button>
+          </div>
+
+          {/* Higher or Lower Game Card */}
+          <div className="game-card featured higher-lower-style" onClick={onPlayHigherLower}>
+            <div className="game-card-badge">New</div>
+            <div className="hl-preview">
+              <div className="hl-preview-cards">
+                <div className="hl-preview-card left">
+                  <img src="https://img.a.transfermarkt.technology/portrait/big/8198-1694609670.jpg" alt="Ronaldo" />
+                  <div className="hl-preview-stat">639M</div>
+                </div>
+                <div className="hl-preview-vs">VS</div>
+                <div className="hl-preview-card right">
+                  <img src="https://img.a.transfermarkt.technology/portrait/big/28003-1710080339.jpg" alt="Messi" />
+                  <div className="hl-preview-question">?</div>
+                </div>
+              </div>
+            </div>
+            <h3 className="game-card-title">Higher or Lower</h3>
+            <p className="game-card-subtitle">Instagram Challenge</p>
+            <p className="game-card-description">
+              Guess which footballer has more Instagram followers! How high can you score?
+            </p>
+            <div className="game-card-features">
+              <span className="feature"><UsersIcon size={16} /> 1 Player</span>
+              <span className="feature"><ClockIcon size={16} /> Endless</span>
+              <span className="feature"><TrophyIcon size={16} /> High Scores</span>
             </div>
             <button className="play-button">
               <span>Play Now</span>
