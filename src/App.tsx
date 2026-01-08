@@ -1,150 +1,78 @@
-import { useState } from 'react';
-import { GameProvider, useGame } from './context/GameContext';
-import { SetupScreen } from './components/SetupScreen';
-import { SecretAssignment } from './components/SecretAssignment';
-import { GameBoard } from './components/GameBoard';
-import { PassingScreen } from './components/PassingScreen';
-import { GuessingScreen } from './components/GuessingScreen';
-import { GameOver } from './components/GameOver';
-import { LandingPage } from './components/LandingPage';
-import { SquadBuilder } from './components/SquadBuilder';
-import { HigherLower } from './components/HigherLower';
-import { BlindRanking } from './components/BlindRanking';
-import { FootballPoker } from './components/FootballPoker';
-import { FootballConnections } from './components/FootballConnections';
-import { FootballWordle } from './components/FootballWordle';
+import { useState, useCallback } from 'react';
+import type { PlayerSet } from './data/playerSets';
+import { HomeScreen } from './components/HomeScreen';
+import { ProfileScreen } from './components/ProfileScreen';
+import { SettingsScreen } from './components/SettingsScreen';
+import { GameScreen } from './components/GameScreen';
 import './App.css';
 
-type AppView = 'landing' | 'guess-who' | 'squad-builder' | 'higher-lower' | 'blind-ranking' | 'football-poker' | 'football-connections' | 'football-wordle';
+type AppView = 'home' | 'profile' | 'settings' | 'game';
 
-function GameContent({ onBackToLanding }: { onBackToLanding: () => void }) {
-  const { state } = useGame();
-
-  switch (state.phase) {
-    case 'setup':
-      return <SetupScreen onBack={onBackToLanding} />;
-    case 'selecting':
-      return <SecretAssignment />;
-    case 'assigning':
-      return <SecretAssignment />; // Legacy - keeping for compatibility
-    case 'passing':
-      return <PassingScreen />;
-    case 'playing':
-      return <GameBoard />;
-    case 'guessing':
-      return <GuessingScreen />;
-    case 'gameover':
-      return <GameOver onBackToLanding={onBackToLanding} />;
-    default:
-      return <SetupScreen onBack={onBackToLanding} />;
-  }
+interface GameConfig {
+  playerSet: PlayerSet;
+  mode: 'pass-play' | 'vs-ai';
 }
 
 function App() {
-  const [currentView, setCurrentView] = useState<AppView>('landing');
+  const [currentView, setCurrentView] = useState<AppView>('home');
+  const [gameConfig, setGameConfig] = useState<GameConfig | null>(null);
 
-  const handlePlayGuessWho = () => {
-    setCurrentView('guess-who');
-  };
+  const handleStartGame = useCallback((playerSet: PlayerSet, mode: 'pass-play' | 'vs-ai') => {
+    setGameConfig({ playerSet, mode });
+    setCurrentView('game');
+  }, []);
 
-  const handlePlaySquadBuilder = () => {
-    setCurrentView('squad-builder');
-  };
+  const handleOpenProfile = useCallback(() => {
+    setCurrentView('profile');
+  }, []);
 
-  const handlePlayHigherLower = () => {
-    setCurrentView('higher-lower');
-  };
+  const handleOpenSettings = useCallback(() => {
+    setCurrentView('settings');
+  }, []);
 
-  const handlePlayBlindRanking = () => {
-    setCurrentView('blind-ranking');
-  };
+  const handleOpenSetEditor = useCallback(() => {
+    // TODO: Implement set editor
+    alert('Custom set editor coming soon!');
+  }, []);
 
-  const handlePlayFootballPoker = () => {
-    setCurrentView('football-poker');
-  };
+  const handleBack = useCallback(() => {
+    setCurrentView('home');
+    setGameConfig(null);
+  }, []);
 
-  const handlePlayFootballConnections = () => {
-    setCurrentView('football-connections');
-  };
-
-  const handlePlayFootballWordle = () => {
-    setCurrentView('football-wordle');
-  };
-
-  const handleBackToLanding = () => {
-    setCurrentView('landing');
-  };
-
-  if (currentView === 'landing') {
-    return (
-      <div className="app">
-        <LandingPage
-          onPlayGuessWho={handlePlayGuessWho}
-          onPlaySquadBuilder={handlePlaySquadBuilder}
-          onPlayHigherLower={handlePlayHigherLower}
-          onPlayBlindRanking={handlePlayBlindRanking}
-          onPlayFootballPoker={handlePlayFootballPoker}
-          onPlayFootballConnections={handlePlayFootballConnections}
-          onPlayFootballWordle={handlePlayFootballWordle}
-        />
-      </div>
-    );
-  }
-
-  if (currentView === 'squad-builder') {
-    return (
-      <div className="app">
-        <SquadBuilder onBack={handleBackToLanding} />
-      </div>
-    );
-  }
-
-  if (currentView === 'higher-lower') {
-    return (
-      <div className="app">
-        <HigherLower onBack={handleBackToLanding} />
-      </div>
-    );
-  }
-
-  if (currentView === 'blind-ranking') {
-    return (
-      <div className="app">
-        <BlindRanking onBack={handleBackToLanding} />
-      </div>
-    );
-  }
-
-  if (currentView === 'football-poker') {
-    return (
-      <div className="app">
-        <FootballPoker onBack={handleBackToLanding} />
-      </div>
-    );
-  }
-
-  if (currentView === 'football-connections') {
-    return (
-      <div className="app">
-        <FootballConnections onBack={handleBackToLanding} />
-      </div>
-    );
-  }
-
-  if (currentView === 'football-wordle') {
-    return (
-      <div className="app">
-        <FootballWordle onBack={handleBackToLanding} />
-      </div>
-    );
-  }
+  const handleGameEnd = useCallback((_won: boolean, _questionsAsked: number) => {
+    // Stats are already recorded in GameScreen
+    // Could show achievement unlock animation here
+  }, []);
 
   return (
-    <GameProvider>
-      <div className="app">
-        <GameContent onBackToLanding={handleBackToLanding} />
-      </div>
-    </GameProvider>
+    <div className="app">
+      {currentView === 'home' && (
+        <HomeScreen
+          onStartGame={handleStartGame}
+          onOpenProfile={handleOpenProfile}
+          onOpenSetEditor={handleOpenSetEditor}
+          onOpenSettings={handleOpenSettings}
+        />
+      )}
+
+      {currentView === 'profile' && (
+        <ProfileScreen onBack={handleBack} />
+      )}
+
+      {currentView === 'settings' && (
+        <SettingsScreen onBack={handleBack} />
+      )}
+
+      {currentView === 'game' && gameConfig && (
+        <GameScreen
+          playerSet={gameConfig.playerSet}
+          mode={gameConfig.mode}
+          onBack={handleBack}
+          onGameEnd={handleGameEnd}
+        />
+      )}
+    </div>
   );
 }
 

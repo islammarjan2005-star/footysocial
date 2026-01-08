@@ -1,0 +1,181 @@
+/* Settings Screen */
+
+.settings-screen {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+/* Header */
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  padding-top: calc(env(safe-area-inset-top, 16px) + 16px);
+}
+
+.settings-header h1 {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+
+/* Content */
+.settings-content {
+  padding: 0 20px;
+}
+
+.settings-section {
+  margin-bottom: 32px;
+}
+
+.settings-section h2 {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 16px;
+}
+
+/* Setting Item */
+.setting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  margin-bottom: 10px;
+}
+
+.setting-info {
+  flex: 1;
+  margin-right: 16px;
+}
+
+.setting-label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.setting-desc {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  position: relative;
+  width: 52px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 32px;
+  transition: all 0.3s;
+}
+
+.toggle-slider::before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 3px;
+  bottom: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(20px);
+}
+
+/* Difficulty Toggle */
+.difficulty-toggle {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.difficulty-toggle button {
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.difficulty-toggle button.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* About */
+.about-info {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+}
+
+.app-info {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.app-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+}
+
+.app-version {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.app-desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Tablet & Desktop */
+@media (min-width: 768px) {
+  .settings-screen {
+    max-width: 480px;
+    margin: 0 auto;
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}

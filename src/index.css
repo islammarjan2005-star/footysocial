@@ -1,49 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Oswald:wght@500;600;700&display=swap');
+/* Guess Who - Football Edition - Global Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 :root {
-  /* Classic Guess Who Color Palette */
-  --bg-primary: #f5c542;
-  --bg-secondary: #ffe066;
-  --bg-light: #fff8dc;
-  --bg-card: #ffffff;
-  --bg-board: #2d5a3d;
+  /* Dark Theme Colors */
+  --bg-primary: #0f0f23;
+  --bg-secondary: #1a1a2e;
+  --bg-tertiary: #16213e;
+  --bg-card: rgba(255, 255, 255, 0.05);
 
-  /* Vibrant Primary Colors */
-  --accent-red: #e63946;
-  --accent-blue: #2196f3;
-  --accent-yellow: #ffc107;
-  --accent-green: #4caf50;
-  --accent-orange: #ff6b35;
-  --accent-purple: #9c27b0;
-
-  /* Player Colors */
-  --player-red: #d32f2f;
-  --player-blue: #1976d2;
+  /* Accent Colors */
+  --accent-primary: #667eea;
+  --accent-secondary: #764ba2;
+  --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --accent-success: #4CAF50;
+  --accent-error: #f44336;
+  --accent-warning: #ff9800;
 
   /* Text Colors */
-  --text-primary: #1a1a2e;
-  --text-secondary: #333333;
-  --text-muted: #666666;
-  --text-light: #ffffff;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.5);
+  --text-disabled: rgba(255, 255, 255, 0.3);
 
-  /* Borders and Shadows */
-  --border-dark: #8b4513;
-  --border-light: #daa520;
-  --shadow-pop: 0 8px 25px rgba(0, 0, 0, 0.25);
-  --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.2);
+  /* Borders */
+  --border-default: rgba(255, 255, 255, 0.1);
+  --border-light: rgba(255, 255, 255, 0.06);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 20px rgba(102, 126, 234, 0.4);
 
   /* Typography */
-  --font-display: 'Fredoka One', 'Oswald', cursive;
-  --font-body: 'Nunito', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  font-family: var(--font-body);
+  font-family: var(--font-family);
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: light;
+  color-scheme: dark;
   color: var(--text-primary);
   background: var(--bg-primary);
 
@@ -53,38 +54,25 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-html,
-body {
+html, body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
-}
-
-body {
-  display: block;
-  background:
-    /* Fun pattern overlay */
-    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.2) 0%, transparent 40%),
-    /* Playful dots pattern */
-    radial-gradient(circle, rgba(255, 107, 53, 0.1) 2px, transparent 2px),
-    /* Base sunny gradient */
-    linear-gradient(180deg, #ffd54f 0%, #f5c542 30%, #ffb300 70%, #f5c542 100%);
-  background-size: 100% 100%, 100% 100%, 30px 30px, 100% 100%;
-  background-attachment: fixed;
+  overscroll-behavior: none;
+  background: var(--bg-primary);
 }
 
 #root {
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  font-family: var(--font-display);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 p {
@@ -92,147 +80,110 @@ p {
 }
 
 button {
-  font-family: var(--font-body);
+  font-family: var(--font-family);
   cursor: pointer;
   border: none;
   outline: none;
+  background: none;
+  color: inherit;
+  font-size: inherit;
+  transition: transform 0.1s;
 }
 
 button:active {
   transform: scale(0.98);
 }
 
-/* Fun card panel */
-.panel {
-  background: white;
-  border: 4px solid var(--border-dark);
-  border-radius: 20px;
-  box-shadow:
-    var(--shadow-pop),
-    inset 0 -4px 0 rgba(0, 0, 0, 0.1);
-  position: relative;
-  overflow: hidden;
+input {
+  font-family: var(--font-family);
+  font-size: 16px; /* Prevent zoom on iOS */
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+  color: var(--text-primary);
+  padding: 12px 16px;
 }
 
-.panel::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50%;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(255, 255, 255, 0.3) 50%,
-    transparent 100%
-  );
-  pointer-events: none;
-  border-radius: 16px 16px 0 0;
+input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
 }
 
-/* Global gloss effect for cards */
-.gloss {
-  position: relative;
-  overflow: hidden;
+img {
+  display: block;
+  max-width: 100%;
 }
 
-.gloss::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50%;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0.2) 50%,
-    transparent 100%
-  );
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Custom scrollbar */
+/* Hide scrollbars but keep functionality */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 0;
+  height: 0;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--bg-light);
-  border-radius: 4px;
+/* Selection color */
+::selection {
+  background: rgba(102, 126, 234, 0.4);
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--accent-orange);
-  border-radius: 4px;
-  border: 2px solid var(--bg-light);
+/* Global animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-red);
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Fun Animations */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-@keyframes wiggle {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
 }
 
-@keyframes pop {
-  0% { transform: scale(0); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
 }
 
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(76, 175, 80, 0.5); }
-  50% { box-shadow: 0 0 40px rgba(76, 175, 80, 0.8); }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-@keyframes confetti-fall {
-  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-}
-
-@keyframes slide-up {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes scale-in {
-  from { opacity: 0; transform: scale(0.8); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes card-flip {
-  0% { transform: perspective(1000px) rotateY(0deg); }
-  100% { transform: perspective(1000px) rotateY(180deg); }
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* 3D transforms setup */
-.perspective-container {
-  perspective: 1500px;
-  transform-style: preserve-3d;
+/* Utility classes */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
